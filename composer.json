@@ -1,0 +1,10 @@
+{
+    "name": "mixdinternet/starter-lp",
+    "description": "MIXD Internet - Starter LP",
+    "keywords": [
+        "framework",
+        "lp"
+    ],
+    "license": "MIT",
+    "type": "project"
+}

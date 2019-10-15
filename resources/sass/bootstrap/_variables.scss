@@ -1,0 +1,105 @@
+// Overwrite bootstrap's variables
+
+// Color System
+
+$theme-colors: ();
+
+// Options
+
+$enable-shadows: true;
+
+// Spacing
+
+$spacer: 1rem;
+$spacers: ();
+
+@for $i from 0 through 20 {
+
+  $unit: $spacer * $i;
+  $unit-quarter-variation: $unit + .25;
+  $unit-half-variation: $unit + .5;
+  $unit-half-quarter-variation: $unit + .75;
+
+  $unit-variations: (
+    //'n#{$i}': negative-value($unit),
+    //'n#{$i}q': negative-value($unit-quarter-variation),
+    //'n#{$i}h': negative-value($unit-half-variation),
+    //'n#{$i}hq': negative-value($unit-half-quarter-variation),
+      '#{$i}': $unit,
+      '#{$i}q': ($unit-quarter-variation),
+      '#{$i}h': ($unit-half-variation),
+      '#{$i}hq': ($unit-half-quarter-variation),
+  );
+
+  $spacers: map-merge($spacers, $unit-variations);
+}
+
+// Paragraphs
+
+$paragraph-margin-bottom: 1.5rem;
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 426px, // large-mobile
+    md: 1023px,
+    lg: 1365px,
+    xl: 1439px
+);
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+$container-max-widths: (
+    sm: 645px,
+    md: 920px,
+    lg: 1220px,
+    xl: 1350px
+);
+
+// Components
+
+//$border-radius: .3125rem;
+
+// Typograph
+
+//$font-family-sans-serif: get-font-family($regular-font-map), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+//$headings-font-family: get-font-family($bold-font-map);
+//$headings-color: $primary;
+
+// Buttons + Forms
+//
+// Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
+
+//$input-btn-padding-y: 1.125rem;
+//$input-btn-padding-x: 3.125rem;
+//$input-btn-font-family: get-font-family($bold-font-map);
+//$input-btn-font-size: 1.25rem;
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background, and border color.
+
+//$btn-padding-x: 1rem;
+//$btn-box-shadow: inset 0 -.3125rem 0 0 rgba($primary, .2);
+//$btn-link-disabled-color: rgba($secondary, .50);
+//$btn-border-width: 0;
+
+// Forms
+
+//$input-padding-x: 1rem;
+//$input-padding-y: 1rem;
+//$input-font-family: get-font-family($regular-font-map);
+//$input-font-size: .875rem;
+//$input-bg: $black-haze;
+//$input-border-color: $silver;
+//$input-box-shadow: inset 1px 1px 2px 0 rgba($primary, 0.25);
+//$input-placeholder-color: $emperor;
+//$form-group-margin-bottom: 1.5rem;
+//$custom-control-indicator-checked-bg: $secondary;
+//$custom-control-indicator-checked-disabled-bg: rgba($secondary, .5);
