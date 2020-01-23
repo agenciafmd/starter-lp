@@ -1,9 +1,6 @@
 // Project's fonts
 @import "frontend/fonts";
 
-// Project's custom variables
-@import "frontend/variables";
-
 // Vendors
 @import "vendors/vendors";
 
@@ -17,6 +14,7 @@
 // Bootstrap
 @import "~bootstrap/scss/functions";
 @import "bootstrap/variables";
+@import "frontend/variables";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/root";
