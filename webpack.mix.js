@@ -1,6 +1,6 @@
 let mix = require('laravel-mix');
 let SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
-let scripts = require('./resources/js/bootstrap');
+let frontendImports = require('./resources/js/frontend-imports');
 const environment = require('./resources/js/environment.js');
 
 const httpRegex = 'http:\\/\\/|https:\\/\\/';
@@ -68,23 +68,24 @@ mix.options({
 
 mix
     .sass('resources/sass/frontend.scss', 'public/css')
-    // .options({
-    //     postCss: [
-    //         require('postcss-sprites')({
-    //             spritePath: 'images'
-    //         }),
-    //     ]
-    // })
+    .options({
+      processCssUrls: false,
+      //     postCss: [
+      //         require('postcss-sprites')({
+      //             spritePath: 'images'
+      //         }),
+      //     ]
+    })
     .copyDirectory('resources/fonts', 'public/fonts')
     .copyDirectory('resources/html', 'public')
     //.copyDirectory('resources/images', 'public/images')
     //.copy('resources/images/*', 'public/images')
-    .babel(scripts, 'public/js/frontend.js');
+    .babel(frontendImports, 'public/js/frontend.js');
 
 if (!mix.inProduction()) {
   wpConfig.devtool = 'source-map';
   mix.sourceMaps()
-     // .copyDirectory('resources/images', 'public/images')
+      // .copyDirectory('resources/images', 'public/images')
      .copy('resources/images/**/*', 'public/images')
      .copy('resources/images/icons/favicon.ico', 'public');
 }
@@ -97,18 +98,21 @@ if (mix.inProduction()) {
       .purgeCss({
         enabled: true,
         globs: [
-          path.join(__dirname, 'packages/mixdinternet/frontend/src/**/*.php'),
+          path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
           path.join(__dirname, 'node_modules/tiny-slider/**/*.js'),
+          path.join(
+              __dirname,
+              'node_modules/sweetalert2/dist/sweetalert2.min.js',
+          ),
+          path.join(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
           path.join(__dirname, 'node_modules/select2/dist/**/*.js'),
           path.join(__dirname, 'node_modules/sweetalert2/dist/*.js'),
-          path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
-          path.join(__dirname, 'node_modules/bootstrap-daterangepicker/*.js'),
           path.join(
               __dirname,
               'node_modules/bootstrap/dist/js/bootstrap.min.js',
           ),
         ],
-        // Include classes we don't have access directly
+        // Include classes we don't have direct access
         whitelistPatterns: [/hs-*/, /tns-*/],
       })
       .version();

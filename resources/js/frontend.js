@@ -1,3 +1,42 @@
+function setupServiceWorker() {
+
+  if (!('serviceWorker' in navigator)) {
+
+    return;
+  }
+
+  window.addEventListener('load', function () {
+
+    if (navigator.onLine) {
+
+      return;
+    }
+
+    $('<style type=\'text/css\'>' +
+        ' .is-online { display: none } ' +
+        ' .is-offline { display: block } ' +
+        '</style>')
+        .appendTo('head');
+  });
+
+  if (navigator.serviceWorker.controller) {
+
+    console.log(
+        '[PWA Builder] active service worker found, no need to register');
+    return;
+  }
+
+  // Register the ServiceWorker
+  navigator.serviceWorker
+           .register('/sw.js')
+           .then(function (reg) {
+             console.log('Service worker has been registered for scope: ' + reg.scope);
+           })
+           .catch(function (err) {
+             console.log('ServiceWorker registration failed: ', err);
+           });
+}
+
 function preventInvalidFormSubmit() {
 
   var forms = document.getElementsByClassName('needs-validation');
@@ -256,23 +295,6 @@ function setupAnchorReloadPrevention() {
       });
 }
 
-function setupProgressiveThumb() {
-
-  $.fn.progressive_thumb = function () {
-
-    new Progressive({
-      el: 'body',
-      lazyClass: 'lazy',
-      removePreview: true,
-      scale: true,
-    }).fire();
-  };
-
-  $(window)
-      .progressive_thumb();
-}
-
-// To enable infinite scroll you must enable progressive thumb
 function setupInfiniteScroll() {
 
   $(window)
@@ -281,12 +303,6 @@ function setupInfiniteScroll() {
         contentSelector: '.infinite-scroll-content',
         nextSelector: 'a[rel~="next"]',
         loadImage: '/images/loading.gif',
-      });
-
-  $(document)
-      .on('clever-infinite-scroll-content-loaded', function () {
-        $(window)
-            .progressive_thumb();
       });
 }
 
@@ -321,6 +337,8 @@ function setupCustomFileInput() {
 
 $(function () {
 
+  setupServiceWorker();
+
   preventInvalidFormSubmit();
 
   // setupSmoothScroll();
@@ -341,9 +359,6 @@ $(function () {
 
   // setupAnchorReloadPrevention();
 
-  // setupProgressiveThumb();
-
-  // To enable infinite scroll you must enable progressive thumb
   // setupInfiniteScroll();
 
   // setupShareWindow();
@@ -351,4 +366,13 @@ $(function () {
   // setupCustomFileInput();
 
   // setupCustomFormFieldsVisibility();
+});
+
+window.addEventListener('load', function () {
+
+  /**
+   * We need the starting function here because vh/vw are calculated after all
+   * resources loaded, which is different from DOM ready event
+   * */
+  setupStickyHeader();
 });
