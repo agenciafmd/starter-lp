@@ -8,7 +8,6 @@ $fonts-base-path: '/fonts';
 // e.g.: $open-sans-regular: (
 //    family: 'open_sansregular',
 //    file-name: 'open_sans_regular', -> WITHOUT FONT EXTENSION
-//    fallback: sans-serif
 //  );
 @mixin font-face($font-map) {
 
@@ -24,22 +23,23 @@ $fonts-base-path: '/fonts';
   font-display: swap;
 }
 
-$book-font-map: (
-    family: 'BookFontExample',
-    file-name: 'BookFontExample',
+$light-font-map: (
+    family: 'Roboto-Light',
+    file-name: 'Roboto-Light',
 );
+
 $regular-font-map: (
-    family: 'BookItalicFontExample',
-    file-name: 'BookItalicFontExample',
+    family: 'Roboto-Regular',
+    file-name: 'Roboto-Regular',
 );
 
 $bold-font-map: (
-    family: 'BoldFontExample',
-    file-name: 'BoldFontExample',
+    family: 'Roboto-Bold',
+    file-name: 'Roboto-Bold',
 );
 
 $project-fonts: (
-    book: $book-font-map,
+    light: $light-font-map,
     regular: $regular-font-map,
     bold: $bold-font-map,
 );
@@ -60,7 +60,10 @@ $project-fonts: (
 $font-sizes: (
     14,
     16,
+    18,
     20,
+    25,
     30,
+    35,
     40,
 );

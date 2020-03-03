@@ -50,6 +50,8 @@
 @import "~bootstrap/scss/utilities";
 @import "~bootstrap/scss/print";
 
+@import "frontend/mixins";
+
 // Overwriting bootstrap's styles
 @import "bootstrap/bootstrap";
 
@@ -59,15 +61,13 @@
 // Common (global) styles
 @import "frontend/reboot";
 @import "frontend/typography";
+@import "components/accordion";
+@import "components/cards";
 @import "components/icons";
 @import "components/images";
 @import "components/structure";
 @import "components/videos";
 @import "styles";
-
-// Partial`s styles
-@import "pages/partials/footer";
-@import "pages/partials/header";
 
 // Pages`s styles
 @import "pages/index";
