@@ -7,10 +7,13 @@
     "/public/images/favicon.ico": "/public/images/favicon.ico",
     "/public/images/icon-192x192.png": "/public/images/icon-192x192.png",
     "/public/images/icon-512x512.png": "/public/images/icon-512x512.png",
+    "/public/images/mstile-150x150.png": "/public/images/mstile-150x150.png",
     "/public/images/safari-pinned-tab.svg": "/public/images/safari-pinned-tab.svg",
+    "/public/images/loading.gif": "/public/images/loading.gif",
     "/public/images/logo-amp.png": "/public/images/logo-amp.png",
     "/public/images/logo-email.png": "/public/images/logo-email.png",
     "/public/images/logo.png": "/public/images/logo.png",
+    "/public/images/sem-imagem.jpg": "/public/images/sem-imagem.jpg",
     "/public/images/launch-1125x2436.png": "/public/images/launch-1125x2436.png",
     "/public/images/launch-1242x2148.png": "/public/images/launch-1242x2148.png",
     "/public/images/launch-1536x2048.png": "/public/images/launch-1536x2048.png",
@@ -18,5 +21,6 @@
     "/public/images/launch-2048x2732.png": "/public/images/launch-2048x2732.png",
     "/public/images/launch-640x1136.png": "/public/images/launch-640x1136.png",
     "/public/images/launch-750x1294.png": "/public/images/launch-750x1294.png",
+    "/public/images/video-film.png": "/public/images/video-film.png",
     "/public/favicon.ico": "/public/favicon.ico"
 }
