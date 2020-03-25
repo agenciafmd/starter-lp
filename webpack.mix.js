@@ -84,36 +84,32 @@ mix
 if (!mix.inProduction()) {
   wpConfig.devtool = 'source-map';
   mix.sourceMaps()
-     // .copyDirectory('resources/images', 'public/images')
-     .copy('resources/images/**/*', 'public/images')
-     .copy('resources/images/icons/favicon.ico', 'public');
+  // .copyDirectory('resources/images', 'public/images')
+      .copy('resources/images/**/*', 'public/images')
+      .copy('resources/images/icons/favicon.ico', 'public');
 }
 
 mix.webpackConfig(wpConfig);
 
-if (mix.inProduction()) {
-  mix
-      .js('resources/js/compress.js', 'public/js')
-      .purgeCss({
-        enabled: true,
-        globs: [
-          path.join(__dirname, 'packages/mixdinternet/frontend/src/**/*.php'),
-          path.join(__dirname, 'node_modules/tiny-slider/**/*.js'),
-          path.join(__dirname, 'node_modules/select2/dist/**/*.js'),
-          path.join(__dirname, 'node_modules/sweetalert2/dist/*.js'),
-          path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
-          path.join(__dirname, 'node_modules/bootstrap-daterangepicker/*.js'),
-          path.join(
-              __dirname,
-              'node_modules/bootstrap/dist/js/bootstrap.min.js',
-          ),
-        ],
-        // Include classes we don't have access directly
-        whitelistPatterns: [/hs-*/, /tns-*/],
-      })
-      .version();
-
-}
+mix
+    .js('resources/js/compress.js', 'public/js')
+    .purgeCss({
+      enabled: mix.inProduction(),
+      globs: [
+        path.join(__dirname, 'packages/mixdinternet/frontend/src/**/*.php'),
+        path.join(__dirname, 'node_modules/tiny-slider/**/*.js'),
+        path.join(__dirname, 'node_modules/select2/dist/**/*.js'),
+        path.join(__dirname, 'node_modules/sweetalert2/dist/*.js'),
+        path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
+        path.join(__dirname, 'node_modules/bootstrap-daterangepicker/*.js'),
+        path.join(
+            __dirname,
+            'node_modules/bootstrap/dist/js/bootstrap.min.js',
+        ),
+      ],
+      // Include classes we don't have access directly
+      whitelistPatterns: [/hs-*/, /tns-*/],
+    });
 
 /*
  |--------------------------------------------------------------------------
