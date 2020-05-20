@@ -380,8 +380,6 @@ $(function () {
 
   // setupAnchorReloadPrevention();
 
-  // setupInfiniteScroll();
-
   // setupShareWindow();
 
   // setupCustomFileInput();
@@ -396,4 +394,6 @@ window.addEventListener('load', function () {
    * resources loaded, which is different from DOM ready event
    * */
   setupStickyHeader();
+
+  // setupInfiniteScroll();
 });
