@@ -1,7 +1,6 @@
 {
-    "/public/js/compress.js": "/public/js/compress.js",
     "/public/css/frontend.css": "/public/css/frontend.css",
-    "/public/js/compress.js.map": "/public/js/compress.js.map",
+    "/mix.js.map": "/mix.js.map",
     "/public/css/frontend.css.map": "/public/css/frontend.css.map",
     "/public/js/frontend.js": "/public/js/frontend.js",
     "/public/images/apple-touch-icon.png": "/public/images/apple-touch-icon.png",

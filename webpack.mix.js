@@ -93,7 +93,6 @@ if (!mix.inProduction()) {
 mix.webpackConfig(wpConfig);
 
 mix
-    .js('resources/js/compress.js', 'public/js')
     .purgeCss({
       enabled: mix.inProduction(),
       globs: [
