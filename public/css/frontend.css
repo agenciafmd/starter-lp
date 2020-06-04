@@ -42330,7 +42330,7 @@ b, strong {
   font-family: "Roboto-Regular", sans-serif;
 }
 
-.bold-text {
+.bold-text, form label, .breadcrumb-item.active {
   font-family: "Roboto-Bold", sans-serif;
 }
 
@@ -42536,8 +42536,44 @@ b, strong {
     padding-left: 7.5rem;
   }
 }
+.breadcrumb {
+  color: #6c757d;
+}
+.btn-spinner {
+  padding: 0.375rem 3rem;
+}
+
 .card {
   padding: 15px;
+}
+
+form .custom-select option {
+  background: #fff;
+}
+form .custom-radio .custom-control-input:not(:invalid) ~ .custom-control-label:before, form .custom-radio .custom-control-input:not(:invalid) ~ .custom-control-label:after, form .custom-radio .custom-control-input:not(.is-invalid) ~ .custom-control-label:before, form .custom-radio .custom-control-input:not(.is-invalid) ~ .custom-control-label:after, form .custom-checkbox .custom-control-input:not(:invalid) ~ .custom-control-label:before, form .custom-checkbox .custom-control-input:not(:invalid) ~ .custom-control-label:after, form .custom-checkbox .custom-control-input:not(.is-invalid) ~ .custom-control-label:before, form .custom-checkbox .custom-control-input:not(.is-invalid) ~ .custom-control-label:after {
+  top: 0;
+  left: -2.3rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: #fff;
+}
+form .custom-radio .custom-control-input:not(:invalid):checked ~ .custom-control-label:before, form .custom-radio .custom-control-input:not(.is-invalid):checked ~ .custom-control-label:before, form .custom-checkbox .custom-control-input:not(:invalid):checked ~ .custom-control-label:before, form .custom-checkbox .custom-control-input:not(.is-invalid):checked ~ .custom-control-label:before {
+  border-color: #fff;
+  background-color: #007bff;
+}
+form .custom-switch .custom-control-input ~ .custom-control-label:before {
+  cursor: pointer;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+form .custom-switch .custom-control-input ~ .custom-control-label:after {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+form .custom-switch .custom-control-input:checked ~ .custom-control-label:before {
+  border-color: #fff;
+}
+form .custom-switch .custom-control-input:checked ~ .custom-control-label:after {
+  background-color: #fff;
 }
 
 .ic-primary {
@@ -42572,6 +42608,10 @@ b, strong {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
+.ic-infinite-scroll-loading {
+  min-height: 64px;
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.0' width='64px' height='64px' viewBox='0 0 128 128' fill='%23007bff'%3e%3cg%3e%3ccircle cx='16' cy='64' r='16'/%3e%3ccircle cx='16' cy='64' r='14.344' transform='rotate%2845 64 64%29'/%3e%3ccircle cx='16' cy='64' r='12.531' transform='rotate%2890 64 64%29'/%3e%3ccircle cx='16' cy='64' r='10.75' transform='rotate%28135 64 64%29'/%3e%3ccircle cx='16' cy='64' r='10.063' transform='rotate%28180 64 64%29'/%3e%3ccircle cx='16' cy='64' r='8.063' transform='rotate%28225 64 64%29'/%3e%3ccircle cx='16' cy='64' r='6.438' transform='rotate%28270 64 64%29'/%3e%3ccircle cx='16' cy='64' r='5.375' transform='rotate%28315 64 64%29'/%3e%3canimateTransform attributeName='transform' type='rotate' values='0 64 64;315 64 64;270 64 64;225 64 64;180 64 64;135 64 64;90 64 64;45 64 64' calcMode='discrete' dur='1040ms' repeatCount='indefinite'/%3e%3c/g%3e%3c/svg%3e") no-repeat center;
+}
 
 img:not([alt]) {
   outline: 4px solid red;
@@ -42595,14 +42635,42 @@ img:not([loading=lazy]) {
   -o-object-fit: cover;
      object-fit: cover;
 }
+.style-scroll::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.style-scroll::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+.style-scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #7f7f7f;
+}
+
+@keyframes spinner-border {
+  to {
+    -webkit-transform: rotate(360deg) translateY(50%);
+            transform: rotate(360deg) translateY(50%);
+  }
+}
+.spinner-border {
+  position: absolute;
+  right: 115%;
+  bottom: 60%;
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transform: rotate(0deg) translateY(50%);
+          transform: rotate(0deg) translateY(50%);
+}
+
 .block-spacer-y {
-  padding-top: 6.875rem;
-  padding-bottom: 6.875rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 @media (max-width: 1365.98px) {
   .block-spacer-y {
-    padding-top: calc(6.875rem / 2);
-    padding-bottom: calc(6.875rem / 2);
+    padding-top: calc(6rem / 2);
+    padding-bottom: calc(6rem / 2);
   }
 }
 
@@ -42615,16 +42683,28 @@ img:not([loading=lazy]) {
   bottom: 0;
 }
 
-.style-scroll::-webkit-scrollbar-track {
-  background-color: transparent;
+.pseudo-disabled:after, .pseudo-disabled:before {
+  content: none !important;
 }
-.style-scroll::-webkit-scrollbar {
-  width: 10px;
-  background-color: transparent;
+@media (min-width: 425px) {
+  .pseudo-disabled-sm:after, .pseudo-disabled-sm:before {
+    content: none !important;
+  }
 }
-.style-scroll::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #7f7f7f;
+@media (min-width: 1024px) {
+  .pseudo-disabled-md:after, .pseudo-disabled-md:before {
+    content: none !important;
+  }
+}
+@media (min-width: 1366px) {
+  .pseudo-disabled-lg:after, .pseudo-disabled-lg:before {
+    content: none !important;
+  }
+}
+@media (min-width: 1680px) {
+  .pseudo-disabled-xl:after, .pseudo-disabled-xl:before {
+    content: none !important;
+  }
 }
 
 .lh-0 {
