@@ -1,3 +1,27 @@
+function getThemeVariables() {
+
+  return {
+    breakpoints: {
+      xs: 0,
+      sm: 425, // Read 'from 425px' (min-width)
+      md: 1024, // Read 'from 1024px' (min-width)
+      lg: 1366, // Read 'from 1366px' (min-width)
+      xl: 1680, // Read 'from 1680px' (min-width)
+    },
+    collapseTransitionTime: 350, // In milliseconds
+    colors: {
+      primary: '#',
+      secondary: '#',
+      success: '#',
+      info: '#',
+      warning: '#',
+      danger: '#',
+      light: '#',
+      dark: '#',
+    },
+  };
+}
+
 function setupServiceWorker() {
 
   if (!('serviceWorker' in navigator)) {
@@ -45,6 +69,8 @@ function preventInvalidFormSubmit() {
       if (form.checkValidity() === false) {
         event.preventDefault();
         event.stopPropagation();
+
+        guideUserToTheFirstError();
       }
       form.classList.add('was-validated');
     }, false);
@@ -159,95 +185,118 @@ function setupSelect2() {
 
 function setupInputMasks() {
 
-  if ($.mask) {
-    $('.mask-phone')
-        .focusout(function () {
-
-          var phone, element;
-
-          element = $(this);
-          element.unmask();
-          phone = element.val()
-                         .replace(/\D/g, '');
-          if (phone.length > 10) {
-
-            element.mask('(99) 99999-999?9');
-          } else {
-
-            element.mask('(99) 9999-9999?9');
-          }
-        })
-        .trigger('focusout');
-
-    //http://alexjunioralves.blogspot.com.br/2013/08/mascara-cpfcnpj-para-o-mesmo-campo.html
-    $('.mask-cpfcnpj')
-        .on('keyup', function () {
-
-          var element = $(this);
-          var cpfcnpj = element.val()
-                               .replace(/\D/g, '');
-
-          if ((cpfcnpj.length === 11) || (cpfcnpj.length === 0)) {
-
-            element.mask('999.999.999-99?99999');
-          }
-
-          if (cpfcnpj.length >= 14) {
-
-            element.mask('99.999.999/9999-99');
-          }
-        })
-        .trigger('keyup');
-
-    $('.mask-date')
-        .mask('99/99/9999');
-    $('.mask-zipcode')
-        .mask('99999-999');
-    $('.mask-cpf')
-        .mask('999.999.999-99');
-    $('.mask-cnpj')
-        .mask('99.999.999/9999-99');
-    $('.mask-hour')
-        .mask('99:99');
-    $('.mask-plate')
-        .mask('aaa-9999');
+  function inputHandler(masks, max, event) {
+    var c = event.target;
+    var v = c.value.replace(/\D/g, '');
+    var m = c.value.length > max
+            ? 1
+            : 0;
+    VMasker(c)
+        .unMask();
+    VMasker(c)
+        .maskPattern(masks[m]);
+    c.value = VMasker.toPattern(v, masks[m]);
   }
 
-  $('.mask-money')
-      .maskMoney({
-        prefix: 'R$ ',
-        allowNegative: false,
-        decimal: ',',
-        thousands: '.',
-        affixesStay: false,
-      });
+  if (document.querySelectorAll('.mask-phone').length > 0) {
+    var telMask = ['(99) 9999-99999', '(99) 99999-9999'];
+    var tels = document.querySelectorAll('.mask-phone');
+    tels.forEach((tel) => {
+      VMasker(tel)
+          .maskPattern(telMask[0]);
+      if (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1) {
+        /* me julgue safari desgraçado */
+      }
+      else {
+        tel.addEventListener(
+            'input',
+            inputHandler.bind(undefined, telMask, 14),
+            false,
+        );
+      }
+    });
+  }
 
-  $('.mask-size')
-      .maskMoney({
-        prefix: '',
-        decimal: '',
-        thousands: '.',
-        affixesStay: false,
-        precision: 0,
-      });
+  if (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1) {
+    /* me julgue safari desgraçado */
+    /* o safari não deixa trocar a mascara do campo */
+  }
+  else {
+    if (document.querySelectorAll('.mask-cpfcnpj').length > 0) {
+      var docMask = ['999.999.999-999', '99.999.999/9999-99'];
+      var docs = document.querySelectorAll('.mask-cpfcnpj');
+      docs.forEach((doc) => {
+        VMasker(doc)
+            .maskPattern(docMask[0]);
 
-  $('.mask-integer')
-      .maskMoney({
-        prefix: '',
-        decimal: '',
-        thousands: '',
-        affixesStay: false,
-        precision: 0,
-      });
 
-  $('.mask-float')
-      .maskMoney({
-        prefix: '',
-        decimal: ',',
-        thousands: '',
-        affixesStay: false,
-        precision: 2,
+        doc.addEventListener(
+            'input',
+            inputHandler.bind(undefined, docMask, 14),
+            false,
+        );
       });
+    }
+  }
+  if (document.querySelectorAll('.mask-date').length > 0) {
+    VMasker(document.querySelectorAll('.mask-date'))
+        .maskPattern('99/99/9999');
+  }
+
+  if (document.querySelectorAll('.mask-zipcode').length > 0) {
+    VMasker(document.querySelectorAll('.mask-zipcode'))
+        .maskPattern('99999-999');
+  }
+
+  if (document.querySelectorAll('.mask-cpf').length > 0) {
+    VMasker(document.querySelectorAll('.mask-cpf'))
+        .maskPattern('999.999.999-99');
+  }
+
+  if (document.querySelectorAll('.mask-cnpj').length > 0) {
+    VMasker(document.querySelectorAll('.mask-cnpj'))
+        .maskPattern('99.999.999/9999-99');
+  }
+
+  if (document.querySelectorAll('.mask-hour').length > 0) {
+    VMasker(document.querySelectorAll('.mask-hour'))
+        .maskPattern('99:99');
+  }
+
+  if (document.querySelectorAll('.mask-number').length > 0) {
+    VMasker(document.querySelectorAll('.mask-number'))
+        .maskNumber();
+  }
+
+  if (document.querySelectorAll('.mask-money').length > 0) {
+    VMasker(document.querySelectorAll('.mask-money'))
+        .maskMoney({
+          precision: 2,
+          separator: ',',
+          delimiter: '.',
+          unit: 'R$',
+        });
+  }
+
+  const cpfCnpjValidators = new CpfCnpjValidators();
+  const cpfInput = document.querySelector(cpfCnpjValidators.selectors.cpf);
+  const cnpjInput = document.querySelector(cpfCnpjValidators.selectors.cnpj);
+
+  if (cpfInput) {
+
+    cpfInput.addEventListener('blur', function (event) {
+
+      cpfCnpjValidators.checkCPF(event.target);
+    });
+  }
+
+  if (cnpjInput) {
+
+    cnpjInput.addEventListener('blur', function (event) {
+
+      cpfCnpjValidators.checkCNPJ(event.target);
+    });
+  }
 }
 
 function setupCepSearch() {
@@ -341,19 +390,6 @@ function setupShareWindow() {
       });
 }
 
-function setupCustomFileInput() {
-
-  $('.custom-file-input')
-      .on('change', function () {
-        var fileName = $(this)
-            .val();
-        $(this)
-            .next('.custom-file-label')
-            .addClass('selected')
-            .html(fileName.replace(/^.*[\\\/]/, ''));
-      });
-}
-
 $(function () {
 
   setupServiceWorker();
@@ -380,11 +416,9 @@ $(function () {
 
   // setupAnchorReloadPrevention();
 
-  // setupInfiniteScroll();
-
   // setupShareWindow();
 
-  // setupCustomFileInput();
+  setCustomFileLabel();
 
   // setupCustomFormFieldsVisibility();
 });
@@ -396,4 +430,6 @@ window.addEventListener('load', function () {
    * resources loaded, which is different from DOM ready event
    * */
   setupStickyHeader();
+
+  // setupInfiniteScroll();
 });
