@@ -9105,12 +9105,15 @@ function setCustomFileLabel() {
   });
 }
 
-function setInvalidInput(input) {
-  input.setCustomValidity('invalid');
+function setInvalidInput(_ref2) {
+  var input = _ref2.input,
+      message = _ref2.message;
+  input.setCustomValidity(message || 'invalid');
   input.classList.add('is-invalid');
 }
 
-function setValidInput(input) {
+function setValidInput(_ref3) {
+  var input = _ref3.input;
   input.setCustomValidity('');
   input.classList.remove('is-invalid');
 }
@@ -9140,6 +9143,56 @@ function guideUserToTheFirstError() {
 
     return $stickyHeaderSticky.innerHeight();
   }
+}
+
+function validateFullName(_ref4) {
+  var fullNameElement = _ref4.fullNameElement,
+      invalidMessage = _ref4.invalidMessage;
+  var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+  var fullName = fullNameElement.value; // Only for themed form by Bootstrap
+
+  var invalidFeedbackElement = fullNameElement.nextElementSibling;
+  var defaultInvalidFeedback = invalidFeedbackElement.innerText;
+
+  if (!isValidFullName()) {
+    setInvalidInput({
+      input: fullNameElement,
+      message: invalidMessage
+    });
+    invalidFeedbackElement.innerText = invalidMessage;
+    return;
+  }
+
+  setValidInput({
+    input: fullNameElement
+  });
+  invalidFeedbackElement.innerText = defaultInvalidFeedback;
+
+  function isValidFullName() {
+    return regName.test(fullName);
+  }
+}
+
+function setupFullNameValidate() {
+  var fullNameElements = document.querySelectorAll('.js-full-name');
+
+  if (!fullNameElements.length) {
+    return;
+  }
+
+  fullNameElements.forEach(function (fullNameElement) {
+    fullNameElement.addEventListener('focusout', function () {
+      if (!fullNameElement.value.length) {
+        return;
+      }
+
+      var invalidMessage = 'Por favor, insira nome e sobrenome';
+      validateFullName({
+        fullNameElement: fullNameElement,
+        invalidMessage: invalidMessage
+      });
+    });
+  });
 }
 
 var CpfCnpjValidators =
@@ -9180,11 +9233,15 @@ function () {
       };
 
       if (!cnpj.number.full || cnpj.number.full.length !== this.sizes.cnpj) {
-        setInvalidInput(cnpjInput);
+        setInvalidInput({
+          cnpjInput: cnpjInput
+        });
       }
 
       if (cnpj.number.full === '00000000000000' || cnpj.number.full === '11111111111111' || cnpj.number.full === '22222222222222' || cnpj.number.full === '33333333333333' || cnpj.number.full === '44444444444444' || cnpj.number.full === '55555555555555' || cnpj.number.full === '66666666666666' || cnpj.number.full === '77777777777777' || cnpj.number.full === '88888888888888' || cnpj.number.full === '99999999999999') {
-        setInvalidInput(cnpjInput);
+        setInvalidInput({
+          cnpjInput: cnpjInput
+        });
         return;
       }
 
@@ -9202,7 +9259,9 @@ function () {
       var result = sum % 11 < 2 ? 0 : 11 - sum % 11;
 
       if (result !== Number(cnpj.number.suffix.charAt(0))) {
-        setInvalidInput(cnpjInput);
+        setInvalidInput({
+          cnpjInput: cnpjInput
+        });
         return;
       }
 
@@ -9221,11 +9280,15 @@ function () {
       result = sum % 11 < 2 ? 0 : 11 - sum % 11;
 
       if (result !== Number(cnpj.number.suffix.charAt(1))) {
-        setInvalidInput(cnpjInput);
+        setInvalidInput({
+          cnpjInput: cnpjInput
+        });
         return;
       }
 
-      setValidInput(cnpjInput);
+      setValidInput({
+        cnpjInput: cnpjInput
+      });
       return true;
     }
   }, {
@@ -9239,12 +9302,16 @@ function () {
       };
 
       if (!cpf.fullNumber || cpf.fullNumber.length !== this.sizes.cpf) {
-        setInvalidInput(cpfInput);
+        setInvalidInput({
+          cpfInput: cpfInput
+        });
         return;
       }
 
       if (cpf.fullNumber === '00000000000' || cpf.fullNumber === '11111111111' || cpf.fullNumber === '22222222222' || cpf.fullNumber === '33333333333' || cpf.fullNumber === '44444444444' || cpf.fullNumber === '55555555555' || cpf.fullNumber === '66666666666' || cpf.fullNumber === '77777777777' || cpf.fullNumber === '88888888888' || cpf.fullNumber === '99999999999') {
-        setInvalidInput(cpfInput);
+        setInvalidInput({
+          cpfInput: cpfInput
+        });
         return;
       }
 
@@ -9255,7 +9322,9 @@ function () {
       }
 
       if (d1 === 0) {
-        setInvalidInput(cpfInput);
+        setInvalidInput({
+          cpfInput: cpfInput
+        });
         return;
       }
 
@@ -9266,7 +9335,9 @@ function () {
       }
 
       if (Number(cpf.suffix.charAt(0)) !== d1) {
-        setInvalidInput(cpfInput);
+        setInvalidInput({
+          cpfInput: cpfInput
+        });
         return;
       }
 
@@ -9283,11 +9354,15 @@ function () {
       }
 
       if (Number(cpf.suffix.charAt(1)) !== d1) {
-        setInvalidInput(cpfInput);
+        setInvalidInput({
+          cpfInput: cpfInput
+        });
         return;
       }
 
-      setValidInput(cpfInput);
+      setValidInput({
+        cpfInput: cpfInput
+      });
       return true;
     }
   }]);
@@ -9679,8 +9754,10 @@ $(function () {
   // setupTooltip();
   // setupAnchorReloadPrevention();
   // setupShareWindow();
+  // Forms Helpers Initialization
 
-  setCustomFileLabel(); // setupCustomFormFieldsVisibility();
+  setCustomFileLabel();
+  setupFullNameValidate(); // setupCustomFormFieldsVisibility();
 });
 window.addEventListener('load', function () {
   /**
