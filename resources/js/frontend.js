@@ -391,12 +391,7 @@ $(function () {
 
   // setupShareWindow();
 
-  // Forms Helpers Initialization
-  setCustomFileLabel();
-
-  setupFullNameValidate();
-
-  // setupCustomFormFieldsVisibility();
+  initializeFormHelpers();
 });
 
 window.addEventListener('load', function () {
