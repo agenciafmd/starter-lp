@@ -163,14 +163,14 @@ function setupFullNameValidate() {
 
   function fullNameValidateHandler({ fullNameElement }) {
 
-      if (!fullNameElement.value.length) {
+    if (!fullNameElement.value.length) {
 
-        return;
-      }
+      return;
+    }
 
-      const invalidMessage = 'Por favor, insira nome e sobrenome';
+    const invalidMessage = 'Por favor, insira nome e sobrenome';
 
-      validateFullName({ fullNameElement: fullNameElement, invalidMessage });
+    validateFullName({ fullNameElement: fullNameElement, invalidMessage });
   }
 }
 
@@ -217,12 +217,12 @@ function setupBrazilianPhoneValidate() {
         setInvalidInput({
           input: phoneInput,
           message: 'Por favor, insira um número de telefone válido',
-    });
+        });
         return;
       }
 
       setValidInput({ input: phoneInput });
-  });
+    });
   });
 
   function isValidPhone(phoneValue) {
