@@ -96,6 +96,8 @@ mix
     .purgeCss({
       enabled: mix.inProduction(),
       globs: [
+        path.join(__dirname, 'resources/html/*.html'),
+        path.join(__dirname, 'resources/js/**/*.js'),
         path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
         path.join(__dirname, 'node_modules/tiny-slider/**/*.js'),
         path.join(
@@ -111,7 +113,7 @@ mix
         ),
       ],
       // Include classes we don't have direct access
-      whitelistPatterns: [/hs-*/, /tns-*/],
+      whitelistPatterns: [/hs-*/, /tns-*/, /js-*/],
     });
 
 /*
@@ -124,14 +126,13 @@ mix.browserSync({
   proxy: projectProxy,
   open: false,
   files: [
-    'app/**/*.php',
-    'resources/views/**/*.php',
-    'packages/mixdinternet/frontend/src/**/*.php',
+    'resources/html/**/*.html',
     'resources/js/**/*.js',
     'resources/sass/**/*.scss',
-    'public/js/**/*.js',
-    'public/css/**/*.css',
-    'public/*.html',
+    'resources/svg/**/*.svg',
+    // 'public/js/**/*.js',
+    // 'public/css/**/*.css',
+    // 'public/*.html',
   ],
   watchOptions: {
     usePolling: true,
