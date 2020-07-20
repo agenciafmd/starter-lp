@@ -42664,29 +42664,29 @@ img:not([loading=lazy]) {
 }
 
 .block-spacer-t {
-  padding-top: 6rem;
+  padding-top: 3rem;
 }
-@media (max-width: 1365.98px) {
+@media (min-width: 1366px) {
   .block-spacer-t {
-    padding-top: calc(6rem / 2);
+    padding-top: calc(3rem * 2);
   }
 }
 .block-spacer-b {
-  padding-bottom: 6rem;
+  padding-bottom: 3rem;
 }
-@media (max-width: 1365.98px) {
+@media (min-width: 1366px) {
   .block-spacer-b {
-    padding-bottom: calc(6rem / 2);
+    padding-bottom: calc(3rem * 2);
   }
 }
 .block-spacer-y {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
-@media (max-width: 1365.98px) {
+@media (min-width: 1366px) {
   .block-spacer-y {
-    padding-top: calc(6rem / 2);
-    padding-bottom: calc(6rem / 2);
+    padding-top: calc(3rem * 2);
+    padding-bottom: calc(3rem * 2);
   }
 }
 
