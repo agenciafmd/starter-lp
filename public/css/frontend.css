@@ -42663,6 +42663,22 @@ img:not([loading=lazy]) {
           transform: rotate(0deg) translateY(50%);
 }
 
+.block-spacer-t {
+  padding-top: 6rem;
+}
+@media (max-width: 1365.98px) {
+  .block-spacer-t {
+    padding-top: calc(6rem / 2);
+  }
+}
+.block-spacer-b {
+  padding-bottom: 6rem;
+}
+@media (max-width: 1365.98px) {
+  .block-spacer-b {
+    padding-bottom: calc(6rem / 2);
+  }
+}
 .block-spacer-y {
   padding-top: 6rem;
   padding-bottom: 6rem;
