@@ -9814,6 +9814,19 @@ function setupShareWindow() {
   });
 }
 
+function insertCopyrightYear() {
+  var copyrightContainerSelector = '.js-copyright-container';
+  var hasCopyrightSelector = $('footer').find(copyrightContainerSelector).length;
+
+  if (!hasCopyrightSelector) {
+    console.error("".concat(copyrightContainerSelector, " class is required to insert copyright text"));
+    return;
+  }
+
+  var $yearContainer = $(copyrightContainerSelector);
+  $yearContainer.text("Todos os direitos reservados \xA9 ".concat(new Date().getFullYear()));
+}
+
 $(function () {
   setupServiceWorker();
   preventInvalidFormSubmit();
@@ -9826,6 +9839,7 @@ $(function () {
   // setupTooltip();
   // setupAnchorReloadPrevention();
   // setupShareWindow();
+  // insertCopyrightYear();
 
   initializeFormHelpers();
 });
