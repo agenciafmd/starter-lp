@@ -397,7 +397,7 @@ $(function () {
 
   // setupSelect2();
 
-  // setupInputMasks();
+  setupInputMasks();
 
   // setupCepSearch();
 
