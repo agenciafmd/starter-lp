@@ -52,27 +52,34 @@ function setupServiceWorker() {
 
   // Register the ServiceWorker
   navigator.serviceWorker
-           .register('/sw.js')
-           .then(function (reg) {
-             console.log('Service worker has been registered for scope: ' + reg.scope);
-           })
-           .catch(function (err) {
-             console.log('ServiceWorker registration failed: ', err);
-           });
+      .register('/sw.js')
+      .then(function (reg) {
+        console.log('Service worker has been registered for scope: ' + reg.scope);
+      })
+      .catch(function (err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
 }
 
 function preventInvalidFormSubmit() {
 
   var forms = document.getElementsByClassName('needs-validation');
   var validation = Array.prototype.filter.call(forms, function (form) {
+
     form.addEventListener('submit', function (event) {
+
       if (form.checkValidity() === false) {
+
         event.preventDefault();
         event.stopPropagation();
 
         guideUserToTheFirstError();
+        form.classList.add('was-validated');
+        return;
       }
-      form.classList.add('was-validated');
+
+      // Execute the function only when form was submitted and is valid
+      disableButtonOnSubmit();
     }, false);
   });
 
@@ -87,22 +94,60 @@ function preventInvalidFormSubmit() {
       });
 }
 
+function disableButtonOnSubmit() {
+
+  const buttons = document.querySelectorAll('form button');
+
+  buttons.forEach((button) => {
+
+    button.setAttribute('disabled', 'disabled');
+
+    const buttonText = button.innerText;
+    button.innerHTML = `<span class="spinner-container">
+                            <span class="spinner-border spinner-border-sm text-light"
+                                  role="status"></span>
+                            ${ buttonText }
+                        </span>`;
+
+    const spinner = button.querySelector('.spinner-container');
+    spinner.classList.add('d-inline-block');
+  });
+}
+
 function verifyUserAgent() {
 
-  var OSNome = "";
-  if (window.navigator.userAgent.indexOf("Windows NT 10.0")!== -1) OSNome="Windows 10";
-  if (window.navigator.userAgent.indexOf("Windows NT 6.2") !== -1) OSNome="Windows 8";
-  if (window.navigator.userAgent.indexOf("Windows NT 6.1") !== -1) OSNome="Windows 7";
-  if (window.navigator.userAgent.indexOf("Windows NT 6.0") !== -1) OSNome="Windows Vista";
-  if (window.navigator.userAgent.indexOf("Windows NT 5.1") !== -1) OSNome="Windows XP";
-  if (window.navigator.userAgent.indexOf("Windows NT 5.0") !== -1) OSNome="Windows 2000";
-  if (window.navigator.userAgent.indexOf("Mac")            !== -1) OSNome="Mac/iOS";
-  if (window.navigator.userAgent.indexOf("X11")            !== -1) OSNome="UNIX";
-  if (window.navigator.userAgent.indexOf("Linux")          !== -1) OSNome="Linux";
+  var OSNome = '';
+  if (window.navigator.userAgent.indexOf('Windows NT 10.0') !== -1) {
+    OSNome = 'Windows 10';
+  }
+  if (window.navigator.userAgent.indexOf('Windows NT 6.2') !== -1) {
+    OSNome = 'Windows 8';
+  }
+  if (window.navigator.userAgent.indexOf('Windows NT 6.1') !== -1) {
+    OSNome = 'Windows 7';
+  }
+  if (window.navigator.userAgent.indexOf('Windows NT 6.0') !== -1) {
+    OSNome = 'Windows Vista';
+  }
+  if (window.navigator.userAgent.indexOf('Windows NT 5.1') !== -1) {
+    OSNome = 'Windows XP';
+  }
+  if (window.navigator.userAgent.indexOf('Windows NT 5.0') !== -1) {
+    OSNome = 'Windows 2000';
+  }
+  if (window.navigator.userAgent.indexOf('Mac') !== -1) {
+    OSNome = 'Mac/iOS';
+  }
+  if (window.navigator.userAgent.indexOf('X11') !== -1) {
+    OSNome = 'UNIX';
+  }
+  if (window.navigator.userAgent.indexOf('Linux') !== -1) {
+    OSNome = 'Linux';
+  }
 
-  if (OSNome !== "Mac/iOS") {
+  if (OSNome !== 'Mac/iOS') {
     let body = document.querySelector('body');
-    body.classList.add("style-scroll");
+    body.classList.add('style-scroll');
   }
 }
 
@@ -164,8 +209,8 @@ function setupInputMasks() {
     var c = event.target;
     var v = c.value.replace(/\D/g, '');
     var m = c.value.length > max
-            ? 1
-            : 0;
+        ? 1
+        : 0;
     VMasker(c)
         .unMask();
     VMasker(c)
@@ -179,10 +224,10 @@ function setupInputMasks() {
     tels.forEach((tel) => {
       VMasker(tel)
           .maskPattern(telMask[0]);
-      if (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1) {
+      if (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf(
+          'Chrome') === -1) {
         /* me julgue safari desgraçado */
-      }
-      else {
+      } else {
         tel.addEventListener(
             'input',
             inputHandler.bind(undefined, telMask, 14),
@@ -192,18 +237,17 @@ function setupInputMasks() {
     });
   }
 
-  if (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1) {
+  if (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf(
+      'Chrome') === -1) {
     /* me julgue safari desgraçado */
     /* o safari não deixa trocar a mascara do campo */
-  }
-  else {
+  } else {
     if (document.querySelectorAll('.mask-cpfcnpj').length > 0) {
       var docMask = ['999.999.999-999', '99.999.999/9999-99'];
       var docs = document.querySelectorAll('.mask-cpfcnpj');
       docs.forEach((doc) => {
         VMasker(doc)
             .maskPattern(docMask[0]);
-
 
         doc.addEventListener(
             'input',
@@ -281,7 +325,7 @@ function setupCepSearch() {
 
         var $this = $(this);
         var cep = $this.val()
-                       .replace('-', '');
+            .replace('-', '');
 
         if (cep.length === 8) {
           $.getJSON('https://api.mixd.com.br/cep/' + cep, {},
