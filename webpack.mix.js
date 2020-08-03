@@ -7,6 +7,7 @@ const httpRegex = 'http:\\/\\/|https:\\/\\/';
 const projectProxy = environment.domain.replace(new RegExp(httpRegex), '');
 
 require('laravel-mix-purgecss');
+require('laravel-mix-criticalcss');
 
 /*
  |--------------------------------------------------------------------------
@@ -114,6 +115,30 @@ mix
       ],
       // Include classes we don't have direct access
       whitelistPatterns: [/hs-*/, /tns-*/, /js-*/],
+    });
+
+//critical path
+
+mix
+    .criticalCss({
+      enabled: mix.inProduction(),
+      paths: {
+        base: 'http://' + environment.domain,
+        templates: 'public/css/critical/',
+        suffix: '',
+      },
+      urls: [
+        // urls que temos o html
+        { url: '/', template: 'index' },
+      ],
+      dimensions: [
+        { width: 375, height: 667 },
+        { width: 1024, height: 768 },
+        { width: 1280, height: 720 },
+        { width: 1366, height: 768 },
+        { width: 1920, height: 1080 },
+      ],
+      ignore: ['@font-face'],
     });
 
 /*

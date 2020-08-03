@@ -1,15 +1,140 @@
 <!doctype html>
 <html lang="pt-br">
   <head>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start':
+            new Date().getTime(), event: 'gtm.js',
+      });
+      var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', '<!--fmd:gtmCode-->');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="X-UA-Compatible"
           content="ie=edge">
-    <title>Starter F&MD</title>
-    <link rel="stylesheet"
-          href="/css/frontend.css">
+    <title><!--fmd:titlePage--></title>
+    <meta name="description"
+          content="<!--fmd:metaDescription-->">
+    <meta name="author"
+          content="FMD">
+
+    <!-- Site name, title, descriptions -->
+    <meta property="og:site_name"
+          content="<!--fmd:ogSiteName-->"/>
+    <meta property="og:title"
+          content="<!--fmd:ogTitle-->"/>
+    <meta property="og:description"
+          content="<!--fmd:ogDescription-->">
+
+    <!-- image to display -->
+    <meta property="og:image"
+          itemprop="image"
+          content="<!--fmd:ogUrlProduction-->/images/logo-thumb.jpg"/>
+
+    <!-- No need to change anything here -->
+    <meta property="og:type"
+          content="website"/>
+    <meta property="og:image:type"
+          content="image/jpeg">
+
+    <!-- Size of image. Anything above 256 will not work in WhatsApp -->
+    <meta property="og:image:width"
+          content="256">
+    <meta property="og:image:height"
+          content="256">
+
+    <!-- Website to visit when clicked in fb or WhatsApp-->
+    <meta property="og:url"
+          content="<!--fmd:ogUrlProduction-->"/>
+
+    <!--fmd:criticalPath-->
+
+    <link rel="preload"
+          href="/css/frontend.css"
+          as="style"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet"
+            href="/css/frontend.css">
+    </noscript>
+    <script>
+      /*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+      !function (t) {
+        'use strict';
+        t.loadCSS || (t.loadCSS = function () {});
+        var e = loadCSS.relpreload = {};
+        if (e.support = function () {
+          var e;
+          try {
+            e = t.document.createElement('link').relList.supports('preload');
+          } catch (t) {e = !1;}
+          return function () {return e;};
+        }(), e.bindMediaToggle = function (t) {
+          var e = t.media || 'all';
+
+          function a() {
+            t.addEventListener ? t.removeEventListener(
+                'load',
+                a,
+            ) : t.attachEvent && t.detachEvent('onload', a), t.setAttribute(
+                'onload',
+                null,
+            ), t.media = e;
+          }
+
+          t.addEventListener ? t.addEventListener(
+              'load',
+              a,
+          ) : t.attachEvent && t.attachEvent(
+              'onload',
+              a,
+          ), setTimeout(function () {t.rel = 'stylesheet', t.media = 'only x';}), setTimeout(
+              a,
+              3e3,
+          );
+        }, e.poly = function () {
+          if (!e.support()) {
+            for (var a = t.document.getElementsByTagName('link'), n = 0; n < a.length; n++) {
+              var o = a[n];
+              'preload' !== o.rel || 'style' !== o.getAttribute('as') || o.getAttribute(
+                  'data-loadcss') || (o.setAttribute(
+                  'data-loadcss',
+                  !0,
+              ), e.bindMediaToggle(o));
+            }
+          }
+        }, !e.support()) {
+          e.poly();
+          var a = t.setInterval(e.poly, 500);
+          t.addEventListener ? t.addEventListener(
+              'load',
+              function () {e.poly(), t.clearInterval(a);},
+          ) : t.attachEvent && t.attachEvent(
+              'onload',
+              function () {e.poly(), t.clearInterval(a);},
+          );
+        }
+        'undefined' != typeof exports ? exports.loadCSS = loadCSS : t.loadCSS = loadCSS;
+      }('undefined' != typeof global ? global : this);
+    </script>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=<!--fmd:gtmCode-->"
+              height="0"
+              width="0"
+              style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div class="container">
       <div class="row">
         <div class="col">
@@ -21,7 +146,11 @@
     </div>
     <script src="/js/frontend.js"></script>
     <script id="__bs_script__">//<![CDATA[
-    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.3'><\/script>".replace("HOST", location.hostname));
+    document.write(
+        '<script async src=\'http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.3\'><\/script>'.replace(
+            'HOST',
+            location.hostname,
+        ));
     //]]></script>
   </body>
 </html>
