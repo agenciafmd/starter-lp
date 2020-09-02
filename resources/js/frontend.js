@@ -464,7 +464,7 @@ window.addEventListener('load', function () {
    * We need the starting function here because vh/vw are calculated after all
    * resources loaded, which is different from DOM ready event
    * */
-  setupStickyHeader();
+  // setupStickyHeader();
 
   // setupInfiniteScroll();
 });
