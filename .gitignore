@@ -85,3 +85,5 @@ typings/
 resources/js/environment.js
 
 *.zip
+
+vendor/
