@@ -164,14 +164,43 @@ function setupSmoothScroll() {
         // Prevent default anchor click behavior
         event.preventDefault();
 
-        var additionalOffset = this.getAttribute('data-scroll-offset') || 0;
+        const additionalOffset = this.getAttribute('data-scroll-offset') || 0;
 
-        $('html, body')
-            .animate({
-              scrollTop: $(this.hash)
-                  .offset().top + Number(additionalOffset),
-            }, 1000);
+        setupScrollAnimate({
+          container: 'html, body',
+          target: $(this.hash),
+          additionalOffset: additionalOffset,
+        });
       });
+}
+
+function setupScrollAnimate({ container, target, additionOffset }) {
+
+  if (!target) {
+
+    console.error(`target: Passar o alvo do link é obrigatório`);
+    return;
+  }
+
+  if (!container) {
+
+    console.error(`container: Passar elemento para executar o scroll é obrigatório`);
+    return;
+  }
+
+  const additionalOffset = Number(additionOffset) || 0;
+  const scrollAnimateConfig = {
+    properties: { scrollTop: target.offset().top + additionalOffset },
+    options: {
+      duration: 1000,
+    },
+  };
+
+  $(container)
+      .animate(
+          scrollAnimateConfig.properties,
+          scrollAnimateConfig.options.duration,
+      );
 }
 
 function onChangeSelectLink() {
@@ -435,8 +464,6 @@ $(function () {
 
   verifyUserAgent();
 
-  // setupSmoothScroll();
-
   // onChangeSelectLink();
 
   // setupSelect2();
@@ -467,4 +494,6 @@ window.addEventListener('load', function () {
   // setupStickyHeader();
 
   // setupInfiniteScroll();
+
+  setupSmoothScroll();
 });
