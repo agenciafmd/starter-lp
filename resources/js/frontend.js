@@ -166,37 +166,36 @@ function setupSmoothScroll() {
 
         const additionalOffset = this.getAttribute('data-scroll-offset') || 0;
 
-        setupScrollAnimate({
-          container: 'html, body',
+        doScrollAnimate({
           target: $(this.hash),
           additionalOffset: additionalOffset,
         });
       });
 }
 
-function setupScrollAnimate({ container, target, additionOffset }) {
+function doScrollAnimate({ containerSelector, targetSelector, additionOffset, animateOptions }) {
 
-  if (!target) {
+  if (!targetSelector) {
 
-    console.error(`target: Passar o alvo do link é obrigatório`);
+    console.error(`targetSelector: Por favor, insira uma string de seleção CSS com o alvo onde o scroll animate irá parar, por exemplo, .my-content, [data-scroll-target=my-content], #my-content, etc`);
     return;
   }
 
-  if (!container) {
-
-    console.error(`container: Passar elemento para executar o scroll é obrigatório`);
-    return;
-  }
-
+  const container = containerSelector ? $(containerSelector) : $('html, body');
   const additionalOffset = Number(additionOffset) || 0;
+  const targetOffset = $(targetSelector).offset().top;
+
   const scrollAnimateConfig = {
-    properties: { scrollTop: target.offset().top + additionalOffset },
+    properties: {
+      scrollTop: targetOffset + additionalOffset,
+    },
     options: {
       duration: 1000,
+      ...animateOptions,
     },
   };
 
-  $(container)
+  container
       .animate(
           scrollAnimateConfig.properties,
           scrollAnimateConfig.options.duration,
@@ -464,6 +463,8 @@ $(function () {
 
   verifyUserAgent();
 
+  setupSmoothScroll();
+
   // onChangeSelectLink();
 
   // setupSelect2();
@@ -494,6 +495,4 @@ window.addEventListener('load', function () {
   // setupStickyHeader();
 
   // setupInfiniteScroll();
-
-  setupSmoothScroll();
 });
