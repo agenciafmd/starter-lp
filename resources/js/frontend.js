@@ -167,7 +167,7 @@ function setupSmoothScroll() {
         const additionalOffset = this.getAttribute('data-scroll-offset') || 0;
 
         doScrollAnimate({
-          target: $(this.hash),
+          targetSelector: $(this.hash),
           additionalOffset: additionalOffset,
         });
       });
