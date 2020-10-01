@@ -17,12 +17,12 @@ module.exports = (function () {
     // 'resources/js/vendors/utm-helper.js',
     'resources/js/vendors/sweetalert2.js',
     // Helpers
+    'resources/js/helpers/utm-helper.js',
     'resources/js/helpers/form-helpers.js',
     'resources/js/helpers/cpf-cnpj-validators.js',
     // 'resources/js/helpers/user-interaction-helpers.js',
     // Components
     'resources/js/components/sticky-header.js',
     // Pages
-    'resources/js/frontend.js',
   ];
 })();
