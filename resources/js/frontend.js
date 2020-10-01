@@ -320,7 +320,7 @@ function setupInputMasks() {
 
 function setupCepSearch() {
 
-  $('#zipcode')
+  $('.js-zipcode')
       .on('blur', function () {
 
         var $this = $(this);
@@ -337,22 +337,26 @@ function setupCepSearch() {
                   return;
                 }
 
-                var stateInput = $('#state');
-                var cityInput = $('#city');
+                var stateInput = $('.js-state');
+                var cityInput = $('.js-city');
 
-                $('#neighborhood')
+                $('.js-neighborhood')
                     .val(result.bairro);
-                $('#address')
+                $('.js-address')
                     .val(result.logradouro);
 
-                // se for input
                 if (stateInput.is('input')) {
 
                   stateInput.val(result.uf_nome);
                 }
 
                 if (cityInput.is('input')) {
+                  cityInput.val(result.cidade);
+                }
 
+                if (stateInput.is('select')) {
+                  stateInput.val(result.uf_nome);
+                  stateInput.trigger('change');
                   cityInput.val(result.cidade);
                 }
               },
@@ -389,7 +393,8 @@ function setupInfiniteScroll() {
         contentsWrapperSelector: '.infinite-scroll',
         contentSelector: '.infinite-scroll-content',
         nextSelector: 'a[rel~="next"]',
-        loadImage: '/images/loading.gif',
+        // Without extension, because we use xlink on svg tag
+        loadImage: 'ic-loading',
       });
 }
 
@@ -407,6 +412,43 @@ function setupShareWindow() {
         );
         return false;
       });
+}
+
+function setupSideDrawer() {
+
+  const $body = $('body');
+  const $mainContent = $('.js-main-content');
+  const $navbar = $('.navbar');
+  const $navbarCollapse = $('.navbar-collapse');
+  const $navbarToggler = $('.navbar-toggler');
+  const headerHeight = $navbar
+      .innerHeight();
+
+  resetSideDrawerConfig();
+
+  if (window.innerWidth > getThemeVariables().breakpoints.md) {
+
+    return;
+  }
+
+  $navbarCollapse.css('margin-top', `${ headerHeight }px`);
+
+  function resetSideDrawerConfig() {
+
+    $navbarCollapse.css('margin-top', '');
+    $navbarCollapse.removeClass('show');
+    $mainContent.removeClass('show-backdrop');
+    $body.removeClass('overflow-hidden');
+  }
+
+  function navbarToggleHandler() {
+
+    $navbarCollapse.toggleClass('show');
+    $mainContent.toggleClass('show-backdrop');
+    $body.toggleClass('overflow-hidden');
+  }
+
+  $navbarToggler.click(navbarToggleHandler);
 }
 
 function insertCopyrightYear() {
@@ -427,6 +469,36 @@ function insertCopyrightYear() {
   $yearContainer.text(`Todos os direitos reservados © ${ new Date().getFullYear() }`);
 }
 
+function setupClipboardJS() {
+
+  // Don't forget to install the package: npm install clipboard --save
+
+  const triggerElement = new ClipboardJS('.js-copy');
+
+  triggerElement.on('success', (event) => {
+
+    showTooltip(event.trigger);
+  });
+
+  function showTooltip(targetElement) {
+
+    const successTooltip = $(targetElement).tooltip({
+
+      title: 'Copiado para a área de transferência',
+      placement: 'bottom',
+      trigger: 'manual',
+    });
+
+    successTooltip.tooltip('show');
+
+    setTimeout(() => {
+
+      successTooltip.tooltip('hide');
+    }, 2000);
+  }
+}
+
+
 $(function () {
 
   setupServiceWorker();
@@ -435,15 +507,17 @@ $(function () {
 
   verifyUserAgent();
 
-  // setupSmoothScroll();
+  setupSmoothScroll();
+
+  // setupSideDrawer();
+
+  // setupCepSearch();
 
   // onChangeSelectLink();
 
   // setupSelect2();
 
-  // setupInputMasks();
-
-  // setupCepSearch();
+  setupInputMasks();
 
   // setupPopover();
 
@@ -456,6 +530,10 @@ $(function () {
   // insertCopyrightYear();
 
   initializeFormHelpers();
+
+  // setupDefaultSlider();
+
+  // setupClipboardJS();
 });
 
 window.addEventListener('load', function () {
