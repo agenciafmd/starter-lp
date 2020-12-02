@@ -52,13 +52,13 @@ function setupServiceWorker() {
 
   // Register the ServiceWorker
   navigator.serviceWorker
-      .register('/sw.js')
-      .then(function (reg) {
-        console.log('Service worker has been registered for scope: ' + reg.scope);
-      })
-      .catch(function (err) {
-        console.log('ServiceWorker registration failed: ', err);
-      });
+           .register('/sw.js')
+           .then(function (reg) {
+             console.log('Service worker has been registered for scope: ' + reg.scope);
+           })
+           .catch(function (err) {
+             console.log('ServiceWorker registration failed: ', err);
+           });
 }
 
 function preventInvalidFormSubmit() {

@@ -1,0 +1,25 @@
+{
+  "name": "<!--fmd:titlePage-->",
+  "short_name": "<!--fmd:titlePage-->",
+  "description": "<!--fmd:metaDescription-->",
+  "scope": "/",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "<!--fmd:backgroundColor-->",
+  "theme_color": "<!--fmd:themeColor-->",
+  "orientation": "portrait",
+  "gcm_sender_id": "",
+  "gcm_sender_id_comment": "",
+  "icons": [
+    {
+      "src": "/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

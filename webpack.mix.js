@@ -88,7 +88,9 @@ if (!mix.inProduction()) {
   mix.sourceMaps()
   // .copyDirectory('resources/images', 'public/images')
       .copy('resources/images/**/*', 'public/images')
-      .copy('resources/images/icons/favicon.ico', 'public');
+     .copy('resources/manifest.json', 'public/manifest.json')
+     .copy('resources/sw.js', 'public/sw.js')
+     .copy('resources/images/icons/favicon.ico', 'public');
 }
 
 mix.webpackConfig(wpConfig);
