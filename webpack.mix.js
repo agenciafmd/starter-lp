@@ -171,7 +171,7 @@ if(environment.folder){
       .copyDirectory('public/fonts', environment.folder + '/wwwroot/fonts')
       .copyDirectory('public/images',environment.folder + '/wwwroot/images')
       .copyDirectory('public/js', environment.folder + '/wwwroot/js')
-      .copyDirectory('public/pdf',environment.folder + '/wwwroot/pdf')
+      /*.copyDirectory('public/pdf',environment.folder + '/wwwroot/pdf')*/
       .copyDirectory('public/svg',environment.folder + '/wwwroot/svg')
       .copy('public/favicon.ico', environment.folder + '/wwwroot/favicon.ico');
 }
