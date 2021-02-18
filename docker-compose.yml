@@ -2,7 +2,7 @@ version: "3.7"
 services:
   app:
     image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim
-    container_name: ${NAME_PROJECT}
+    container_name: {NAME_PROJECT}
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
