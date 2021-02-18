@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  app:
+    image: mcr.microsoft.com/dotnet/sdk:5.0-buster-slim
+    container_name: ${NAME_PROJECT}
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+    volumes:
+      - ./:/app
+    ports:
+      - "12345:80"
+    working_dir: /app
+    command: bash -c "dotnet restore && dotnet watch --project meu-app-docker run --no-launch-profile"
