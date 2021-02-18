@@ -77,4 +77,5 @@ No arquivo Dockerfile é necessário alterar a string `Meu-App-Docker`  para o n
 O mesmo acontece para o arquivo Deploy.yml, altere as strings `meuappdocker` para o nome do projeto, porém descartando caracteres especiais e letras maiúsculas. <br>
 Para executar o projeto em modo watch é necessário subir o arquivo docker-compose, para isso abra o docker-compose.yml e encontre a linha `container_name: {NAME_PROJECT}` e altere a string `{NAME_PROJECT}` para o nome que desejar dar ao seu container. <br>
 Na linha `ports: - "12345:80"` é possivel escolher a porta que deseja executar sua aplicação. Basta alterar a porta 12345 pela de sua preferencia, porém é importante não modificar a porta 80 que é a padrão onde o container do docker estará executando. <br>
+A última linha do arquivo contém o comando que será responsável por atualizar as views em tempo de execução. Nele é necessário modificar o comando `--project Meu-App-Docker` colocando o nome do seu projeto .Net <br>
 Por fim, basta entrar na pasta do projeto pelo seu terminal e executar o comando `docker-compose up`. Sua aplicação estará disponível na porta que foi especificada.
