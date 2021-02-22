@@ -3,6 +3,7 @@ function environment() {
   return {
     production: false,
     domain: 'starter-lp.local',
+    folder: '',
     postStrings: {
       titlePage: 'Starter-LP F&MD',
       metaDescription: 'Descrição completa da página',

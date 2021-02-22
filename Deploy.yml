@@ -1,0 +1,39 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meuappdocker-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: meuappdocker
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 33%      
+  template:
+    metadata:
+      labels:
+        app: meuappdocker
+    spec:
+      containers:
+      - name: meuappdocker
+        image: kuberneteshml.azurecr.io/meuappdocker:<VERSION>
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: meuappdocker-service
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: meuappdocker

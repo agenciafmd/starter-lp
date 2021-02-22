@@ -164,3 +164,15 @@ mix.browserSync({
     interval: 500,
   },
 });
+
+if(environment.folder){
+  mix
+      .copyDirectory('public/css', environment.folder + '/wwwroot/css')
+      .copyDirectory('public/fonts', environment.folder + '/wwwroot/fonts')
+      .copyDirectory('public/images',environment.folder + '/wwwroot/images')
+      .copyDirectory('public/js', environment.folder + '/wwwroot/js')
+      .copyDirectory('public/svg',environment.folder + '/wwwroot/svg')
+      .copy('public/favicon.ico', environment.folder + '/wwwroot/favicon.ico')
+      .copy('public/index.html', environment.folder + '/Views/Home/Index.cshtml' );
+      //.copy('public/pdf',environment.folder + '/wwwroot/pdf')
+}
