@@ -11,6 +11,7 @@ module.exports = (function () {
     'node_modules/sweetalert2/dist/sweetalert2.min.js',
     // 'node_modules/tiny-slider/dist/min/tiny-slider.js',
     'node_modules/vanilla-masker/build/vanilla-masker.min.js',
+    // 'node_modules/share-api-polyfill/dist/share-min.js',
     // 'node_modules/wow.js/dist/wow.min.js',
     // Vendors
     // 'resources/js/vendors/jquery.clever-infinite-scroll.js',
