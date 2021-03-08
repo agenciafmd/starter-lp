@@ -100,7 +100,7 @@ mix
         path.join(__dirname, 'resources/html/*.html'),
         path.join(__dirname, 'resources/js/**/*.js'),
         path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
-        path.join(__dirname, 'node_modules/tiny-slider/**/*.js'),
+        path.join(__dirname, 'node_modules/swiper/**/*.js'),
         path.join(
             __dirname,
             'node_modules/sweetalert2/dist/sweetalert2.min.js',
@@ -114,7 +114,7 @@ mix
         ),
       ],
       // Include classes we don't have direct access
-      whitelistPatterns: [/hs-*/, /tns-*/, /js-*/],
+      whitelistPatterns: [/hs-*/, /tns-*/, /js-*/, /swiper-*/],
     });
 
 //critical path
