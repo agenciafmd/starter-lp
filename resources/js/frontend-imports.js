@@ -12,6 +12,7 @@ module.exports = (function () {
     // 'node_modules/tiny-slider/dist/min/tiny-slider.js',
     'node_modules/vanilla-masker/build/vanilla-masker.min.js',
     // 'node_modules/wow.js/dist/wow.min.js',
+    // 'node_modules/lax.js/lib/lax.min.js',
     // Vendors
     // 'resources/js/vendors/jquery.clever-infinite-scroll.js',
     // Helpers
@@ -23,6 +24,7 @@ module.exports = (function () {
     // 'resources/js/components/sticky-header.js',
     // 'resources/js/components/tiny-slider.js',
     // 'resources/js/components/fancybox.js',
+    // 'resources/js/components/lax.js',
     // Global usages
     'resources/js/frontend.js',
     // Pages
