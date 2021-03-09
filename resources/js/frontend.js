@@ -79,7 +79,7 @@ function preventInvalidFormSubmit() {
       }
 
       // Execute the function only when form was submitted and is valid
-      disableButtonOnSubmit();
+      disableButtonOnSubmit(form);
     }, false);
   });
 
@@ -94,9 +94,9 @@ function preventInvalidFormSubmit() {
       });
 }
 
-function disableButtonOnSubmit() {
+function disableButtonOnSubmit(form) {
 
-  const buttons = document.querySelectorAll('form button');
+  const buttons = form.querySelectorAll('button');
 
   buttons.forEach((button) => {
 
