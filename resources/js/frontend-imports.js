@@ -12,8 +12,6 @@ module.exports = (function () {
     // 'node_modules/tiny-slider/dist/min/tiny-slider.js',
     'node_modules/vanilla-masker/build/vanilla-masker.min.js',
     // 'node_modules/wow.js/dist/wow.min.js',
-    // Vendors
-    // 'resources/js/vendors/jquery.clever-infinite-scroll.js',
     // Helpers
     'resources/js/helpers/utm-helper.js',
     'resources/js/helpers/form-helpers.js',

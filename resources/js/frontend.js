@@ -386,18 +386,6 @@ function setupAnchorReloadPrevention() {
       });
 }
 
-function setupInfiniteScroll() {
-
-  $(window)
-      .cleverInfiniteScroll({
-        contentsWrapperSelector: '.infinite-scroll',
-        contentSelector: '.infinite-scroll-content',
-        nextSelector: 'a[rel~="next"]',
-        // Without extension, because we use xlink on svg tag
-        loadImage: 'ic-loading',
-      });
-}
-
 function setupShareWindow() {
 
   $('.share')
@@ -543,6 +531,4 @@ window.addEventListener('load', function () {
    * resources loaded, which is different from DOM ready event
    * */
   setupFmdHeader();
-
-    // setupInfiniteScroll();
 });
