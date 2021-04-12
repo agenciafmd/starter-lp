@@ -498,6 +498,46 @@ function setupClipboardJS() {
   }
 }
 
+function setupDataLayerEventClickButton() {
+
+  const buttons = document.querySelectorAll('.js-btn-data-layer');
+
+  if (!buttons.length) {
+
+    return;
+  }
+
+  buttons.forEach((button) => {
+
+    button.addEventListener('click', (clickEvent) => {
+
+      const nameDataLayerAction = 'data-fmd-datalayer-action';
+      const linkDataLayerAction = clickEvent.currentTarget.getAttribute(
+          nameDataLayerAction);
+
+      if (!linkDataLayerAction) {
+
+        throw new Error(`Adicione atributo ${ nameDataLayerAction } com seu valor`);
+      }
+
+      const dataLayerOptions = getDataLayerOptions({ action: linkDataLayerAction });
+      window.dataLayer.push(dataLayerOptions);
+    });
+  });
+}
+
+function getDataLayerOptions(options) {
+
+  window.dataLayer = window.dataLayer || [];
+
+  return {
+    ...options,
+    event: options.event || 'gaEvent',
+    category: options.category || 'clique',
+    action: options.action || '',
+    label: options.label || 'enviado',
+  };
+}
 
 $(function () {
 
@@ -534,6 +574,8 @@ $(function () {
   // setupDefaultSlider();
 
   // setupClipboardJS();
+
+  // setupDataLayerEventClickButton();
 });
 
 window.addEventListener('load', function () {
