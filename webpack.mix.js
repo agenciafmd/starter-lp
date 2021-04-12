@@ -101,10 +101,6 @@ mix
         path.join(__dirname, 'resources/js/**/*.js'),
         path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
         path.join(__dirname, 'node_modules/tiny-slider/**/*.js'),
-        path.join(
-            __dirname,
-            'node_modules/sweetalert2/dist/sweetalert2.min.js',
-        ),
         path.join(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
         path.join(__dirname, 'node_modules/select2/dist/**/*.js'),
         path.join(__dirname, 'node_modules/sweetalert2/dist/*.js'),
