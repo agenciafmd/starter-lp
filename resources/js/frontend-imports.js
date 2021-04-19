@@ -12,6 +12,8 @@ module.exports = (function () {
     // 'node_modules/swiper/swiper-bundle.min.js',
     'node_modules/vanilla-masker/build/vanilla-masker.min.js',
     // 'node_modules/wow.js/dist/wow.min.js',
+    // 'node_modules/lax.js/lib/lax.min.js',
+    // Vendors
     // Helpers
     'resources/js/helpers/utm-helper.js',
     'resources/js/helpers/form-helpers.js',
@@ -21,6 +23,7 @@ module.exports = (function () {
     // 'resources/js/components/swiper.js',
     'resources/js/components/fmd-header.js',
     // 'resources/js/components/fancybox.js',
+    // 'resources/js/components/lax.js',
     // Global usages
     'resources/js/frontend.js',
     // Pages

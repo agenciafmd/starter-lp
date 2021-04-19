@@ -572,5 +572,13 @@ window.addEventListener('load', function () {
    * We need the starting function here because vh/vw are calculated after all
    * resources loaded, which is different from DOM ready event
    * */
+
+  if (window.innerWidth > getThemeVariables().breakpoints.md) {
+
+    // setupLax();
+  }
+
+  // setupInfiniteScroll();
+
   setupFmdHeader();
 });
