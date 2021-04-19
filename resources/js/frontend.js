@@ -544,5 +544,9 @@ window.addEventListener('load', function () {
    * */
   // setupStickyHeader();
 
+  if (window.innerWidth > getThemeVariables().breakpoints.md) {
+    // setupLax();
+  }
+
   // setupInfiniteScroll();
 });
