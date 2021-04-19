@@ -386,18 +386,6 @@ function setupAnchorReloadPrevention() {
       });
 }
 
-function setupInfiniteScroll() {
-
-  $(window)
-      .cleverInfiniteScroll({
-        contentsWrapperSelector: '.infinite-scroll',
-        contentSelector: '.infinite-scroll-content',
-        nextSelector: 'a[rel~="next"]',
-        // Without extension, because we use xlink on svg tag
-        loadImage: 'ic-loading',
-      });
-}
-
 function setupShareWindow() {
 
   $('.share')
@@ -498,6 +486,46 @@ function setupClipboardJS() {
   }
 }
 
+function setupDataLayerEventClickButton() {
+
+  const buttons = document.querySelectorAll('.js-btn-data-layer');
+
+  if (!buttons.length) {
+
+    return;
+  }
+
+  buttons.forEach((button) => {
+
+    button.addEventListener('click', (clickEvent) => {
+
+      const nameDataLayerAction = 'data-fmd-datalayer-action';
+      const linkDataLayerAction = clickEvent.currentTarget.getAttribute(
+          nameDataLayerAction);
+
+      if (!linkDataLayerAction) {
+
+        throw new Error(`Adicione atributo ${ nameDataLayerAction } com seu valor`);
+      }
+
+      const dataLayerOptions = getDataLayerOptions({ action: linkDataLayerAction });
+      window.dataLayer.push(dataLayerOptions);
+    });
+  });
+}
+
+function getDataLayerOptions(options) {
+
+  window.dataLayer = window.dataLayer || [];
+
+  return {
+    ...options,
+    event: options.event || 'gaEvent',
+    category: options.category || 'clique',
+    action: options.action || '',
+    label: options.label || 'enviado',
+  };
+}
 
 $(function () {
 
@@ -534,6 +562,8 @@ $(function () {
   // setupDefaultSlider();
 
   // setupClipboardJS();
+
+  // setupDataLayerEventClickButton();
 });
 
 window.addEventListener('load', function () {
@@ -542,11 +572,13 @@ window.addEventListener('load', function () {
    * We need the starting function here because vh/vw are calculated after all
    * resources loaded, which is different from DOM ready event
    * */
-  // setupStickyHeader();
 
   if (window.innerWidth > getThemeVariables().breakpoints.md) {
+
     // setupLax();
   }
 
   // setupInfiniteScroll();
+
+  setupFmdHeader();
 });
