@@ -9,6 +9,7 @@
     "production": "npm run prod && npm run critical && npm run post-prod",
     "critical": "node ./resources/js/critical-path.js",
     "post-prod": "node ./resources/js/post-prod.js",
+    "post-files-dotnet": "node ./resources/js/post-files-dotnet.js",
     "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
@@ -30,6 +31,7 @@
   "dependencies": {
     "@fancyapps/fancybox": "^3.5.7",
     "bootstrap": "^4.5.0",
+    "fs-extra": "^9.1.0",
     "jquery": "^3.5.1",
     "jquery-maskmoney": "^3.0.2",
     "jquery.maskedinput": "^1.4.1",
