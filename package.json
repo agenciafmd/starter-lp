@@ -9,7 +9,7 @@
     "production": "npm run prod && npm run critical && npm run post-prod",
     "critical": "node ./resources/js/critical-path.js",
     "post-prod": "node ./resources/js/post-prod.js",
-    "post-files-dotnet": "node ./resources/js/post-files-dotnet.js",
+    "cp-public-sources-to-wwwroot": "node ./resources/js/cp-public-sources-to-wwwroot.js",
     "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
