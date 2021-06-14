@@ -1,34 +1,70 @@
 const environment = require('./environment.js');
-
 const fs = require('fs');
 
-const indexHtmlPath = new URL(
-    'file:///' + process.cwd() + '/public/index.html');
+function generatePostProd(pages) {
 
-fs.readFile(indexHtmlPath, 'utf8', function (error, data) {
+  if(!pages) {
 
-  if (error) {
-
-    return console.log(error);
+    return;
   }
 
-  Object.entries(environment.postStrings).forEach(([key, value]) => {
+  const convertedPages = getFilePathsToApplyPostProd(pages);
 
-    const pattern = new RegExp(`<!--fmd:${ key }-->`,'g');
+  convertedPages.forEach((postProdItem) => {
 
-    data = data.replace(
-        pattern,
-        value,
-    );
+    fs.readFile(postProdItem.pagePath, 'utf8', (error, data) => {
+
+      if (error) {
+
+        console.log(error);
+        return;
+      }
+
+      Object.entries(environment.postStrings).forEach(([key, value]) => {
+
+        const pattern = new RegExp(`<!--fmd:${ key }-->`, 'g');
+
+        data = data.replace(
+            pattern,
+            value,
+        );
+      });
+
+      fs.writeFile(postProdItem.pagePath, data, 'utf-8', function (error) {
+
+        if (error) {
+
+          console.log(error);
+          return;
+        }
+
+        console.log(` --FMD--\n Post-Prod added to the Page ${ postProdItem.namePage } in /public`);
+      });
+    });
   });
+}
 
-  fs.writeFile(indexHtmlPath, data, 'utf-8', function (error) {
+function getFilePathsToApplyPostProd(pageOptions) {
 
-    if (error) {
+  const relativePathPage = new URL(`file:///${ process.cwd() }/public/`);
 
-      return console.log(error);
-    }
+  return pageOptions.map(item => ({
+    pagePath: new URL(`${ relativePathPage }${ item.template }.html`),
+    namePage: `${ item.template }`,
+  }));
 
-    console.log('Post prod added to the public');
-  });
-});
+  /*
+   FMD - Outra maneira de escrever o retorno acima.
+   return pageOptions.map((item) => {
+   return {
+   pagePath: new URL(`${ relativePathPage }${ item.template }.html`),
+   namePage: `${ item.template }`,
+   }
+   });
+   */
+}
+
+module.exports = {
+
+  generate: generatePostProd,
+};

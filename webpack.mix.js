@@ -2,6 +2,8 @@ let mix = require('laravel-mix');
 let SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 let frontendImports = require('./resources/js/frontend-imports');
 const environment = require('./resources/js/environment.js');
+const criticalPath = require('./resources/js/critical-path');
+const postProd = require('./resources/js/post-prod');
 
 const httpRegex = 'http:\\/\\/|https:\\/\\/';
 const projectProxy = environment.domain.replace(new RegExp(httpRegex), '');
@@ -124,10 +126,7 @@ mix
         templates: 'public/css/critical/',
         suffix: '',
       },
-      urls: [
-        // urls que temos o html
-        { url: '/', template: 'index' },
-      ],
+      urls: environment.pages,
       dimensions: [
         { width: 375, height: 667 },
         { width: 1024, height: 768 },
@@ -136,6 +135,15 @@ mix
         { width: 1920, height: 1080 },
       ],
       ignore: ['@font-face'],
+    })
+    .then(() => {
+
+      if (mix.inProduction()) {
+
+        mix.copyDirectory('resources/html', 'public');
+        postProd.generate(environment.pages);
+        criticalPath.generate(environment.pages);
+      }
     });
 
 /*
