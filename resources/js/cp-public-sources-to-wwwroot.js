@@ -43,13 +43,13 @@ function getSourceFilesDictionary() {
       source: 'public/favicon.ico',
       destination: `${ environment.folder }/wwwroot/favicon.ico`,
     },
-    /*{
+    {
      source: 'public/index.html',
      destination: `${ environment.folder }/views/Home/Index.cshtml`
-     },*/
-    {
-      source: 'public/pdf',
-      destination: `${ environment.folder }/wwwroot/pdf`,
-    },
+     },
+    // {
+    //   source: 'public/pdf',
+    //   destination: `${ environment.folder }/wwwroot/pdf`,
+    // },
   ];
 };
