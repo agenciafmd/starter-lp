@@ -88,7 +88,7 @@ mix
 if (!mix.inProduction()) {
   wpConfig.devtool = 'source-map';
   mix.sourceMaps()
-  // .copyDirectory('resources/images', 'public/images')
+      // .copyDirectory('resources/images', 'public/images')
       .copy('resources/images/**/*', 'public/images')
       .copy('resources/images/icons/favicon.ico', 'public');
 }
@@ -140,11 +140,16 @@ mix
 
       if (mix.inProduction()) {
 
-        mix.copyDirectory('resources/html', 'public');
+        repositionTagsProduction();
         postProd.generate(environment.pages);
         criticalPath.generate(environment.pages);
       }
     });
+
+function repositionTagsProduction() {
+
+  mix.copyDirectory('resources/html', 'public');
+}
 
 /*
  |--------------------------------------------------------------------------
@@ -170,14 +175,3 @@ mix.browserSync({
   },
 });
 
-if(environment.folder){
-  mix
-      .copyDirectory('public/css', environment.folder + '/wwwroot/css')
-      .copyDirectory('public/fonts', environment.folder + '/wwwroot/fonts')
-      .copyDirectory('public/images',environment.folder + '/wwwroot/images')
-      .copyDirectory('public/js', environment.folder + '/wwwroot/js')
-      .copyDirectory('public/svg',environment.folder + '/wwwroot/svg')
-      .copy('public/favicon.ico', environment.folder + '/wwwroot/favicon.ico')
-      .copy('public/index.html', environment.folder + '/Views/Home/Index.cshtml' );
-      //.copy('public/pdf',environment.folder + '/wwwroot/pdf')
-}

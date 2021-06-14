@@ -2,7 +2,9 @@ const fs = require('fs');
 
 function generateCriticalCSS(pages) {
 
-  if (!pages) {
+  const hasPage = pages && !!pages.length;
+
+  if (!hasPage) {
 
     return;
   }
@@ -33,6 +35,7 @@ function generateCriticalCSS(pages) {
         'property',
         'supports',
       ];
+
       let criticalCssAsString = fs.readFileSync(
           criticalItem.criticalCssPath,
           'utf-8',
@@ -42,7 +45,7 @@ function generateCriticalCSS(pages) {
 
         criticalCssAsString = criticalCssAsString.replace(
             new RegExp(`@${atRulesItem}`, 'g'),
-            `@@${atRulesItem}`,
+            `@@${ atRulesItem }`,
         );
       });
 

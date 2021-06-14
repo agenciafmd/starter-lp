@@ -3,7 +3,9 @@ const fs = require('fs');
 
 function generatePostProd(pages) {
 
-  if(!pages) {
+  const hasPage = pages && !!pages.length;
+
+  if (!hasPage) {
 
     return;
   }
