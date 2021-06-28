@@ -2,6 +2,8 @@ let mix = require('laravel-mix');
 let SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 let frontendImports = require('./resources/js/frontend-imports');
 const environment = require('./resources/js/environment.js');
+const criticalPath = require('./resources/js/critical-path');
+const postProd = require('./resources/js/post-prod');
 
 const httpRegex = 'http:\\/\\/|https:\\/\\/';
 const projectProxy = environment.domain.replace(new RegExp(httpRegex), '');
@@ -86,7 +88,7 @@ mix
 if (!mix.inProduction()) {
   wpConfig.devtool = 'source-map';
   mix.sourceMaps()
-  // .copyDirectory('resources/images', 'public/images')
+      // .copyDirectory('resources/images', 'public/images')
       .copy('resources/images/**/*', 'public/images')
       .copy('resources/images/icons/favicon.ico', 'public');
 }
@@ -124,10 +126,7 @@ mix
         templates: 'public/css/critical/',
         suffix: '',
       },
-      urls: [
-        // urls que temos o html
-        { url: '/', template: 'index' },
-      ],
+      urls: environment.pages,
       dimensions: [
         { width: 375, height: 667 },
         { width: 1024, height: 768 },
@@ -136,7 +135,21 @@ mix
         { width: 1920, height: 1080 },
       ],
       ignore: ['@font-face'],
+    })
+    .then(() => {
+
+      if (mix.inProduction()) {
+
+        repositionTagsProduction();
+        postProd.generate(environment.pages);
+        criticalPath.generate(environment.pages);
+      }
     });
+
+function repositionTagsProduction() {
+
+  mix.copyDirectory('resources/html', 'public');
+}
 
 /*
  |--------------------------------------------------------------------------
@@ -162,14 +175,3 @@ mix.browserSync({
   },
 });
 
-if(environment.folder){
-  mix
-      .copyDirectory('public/css', environment.folder + '/wwwroot/css')
-      .copyDirectory('public/fonts', environment.folder + '/wwwroot/fonts')
-      .copyDirectory('public/images',environment.folder + '/wwwroot/images')
-      .copyDirectory('public/js', environment.folder + '/wwwroot/js')
-      .copyDirectory('public/svg',environment.folder + '/wwwroot/svg')
-      .copy('public/favicon.ico', environment.folder + '/wwwroot/favicon.ico')
-      .copy('public/index.html', environment.folder + '/Views/Home/Index.cshtml' );
-      //.copy('public/pdf',environment.folder + '/wwwroot/pdf')
-}
