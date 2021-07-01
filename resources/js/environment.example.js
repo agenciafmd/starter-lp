@@ -3,7 +3,7 @@ function environment() {
   return {
     production: false,
     domain: 'starter-lp.local',
-    folder: '',
+    folder: null,
     postStrings: {
       titlePage: 'Starter-LP F&MD',
       metaDescription: 'Descrição completa da página',
@@ -13,6 +13,12 @@ function environment() {
       ogUrlProduction: 'https://www.starterlp.com.br',
       gtmCode: 'GTM-',
     },
+    pages: [
+      {
+        url: '/',
+        template: 'index',
+      },
+    ],
   };
 }
 
