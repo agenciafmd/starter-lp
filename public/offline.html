@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible"
+        content="ie=edge">
+  <title>Offline</title>
+  <meta name="description"
+        content="Verifique sua conexão.">
+  <meta name="author"
+        content="FMD">
+
+  <link rel="preload"
+        href="/fonts/Ronnia-Bold.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin="">
+
+  <link rel="preload"
+        href="/fonts/Ronnia-ExtraBold.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin="">
+
+  <link rel="preload"
+        href="/fonts/Ronnia-Regular.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin="">
+
+  <!-- inicio PWA -->
+  <link rel="manifest"
+        href="/manifest.json">
+  <link rel="apple-touch-icon"
+        sizes="192x192"
+        href="/images/apple-touch-icon.png">
+  <link rel="shortcut icon"
+        href="/images/favicon.ico"
+        type="image/x-icon">
+  <link rel="mask-icon"
+        href="/images/safari-pinned-tab.svg"
+        color="#FFFFFF">
+  <meta name="msapplication-TileColor"
+        content="#FFFFFF">
+  <meta name="theme-color"
+        content="#004367">
+
+  <!-- IOS -->
+  <meta name="mobile-web-app-capable"
+        content="yes" />
+  <meta name="apple-mobile-web-app-title"
+        content="PWA Testing" />
+  <meta name="apple-mobile-web-app-status-bar-style"
+        content="default" />
+  <!-- fim PWA -->
+
+  <link rel="preload"
+        href="/css/frontend.css"
+        as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+          href="/css/frontend.css">
+  </noscript>
+  <script>
+    /*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+    !function (t) {
+      'use strict';
+      t.loadCSS || (t.loadCSS = function () {
+      });
+      var e = loadCSS.relpreload = {};
+      if (e.support = function () {
+        var e;
+        try {
+          e = t.document.createElement('link').relList.supports('preload');
+        } catch (t) {
+          e = !1;
+        }
+        return function () {
+          return e;
+        };
+      }(), e.bindMediaToggle = function (t) {
+        var e = t.media || 'all';
+
+        function a() {
+          t.addEventListener
+          ? t.removeEventListener(
+              'load',
+              a,
+          )
+          : t.attachEvent && t.detachEvent('onload', a), t.setAttribute(
+              'onload',
+              null,
+          ), t.media = e;
+        }
+
+        t.addEventListener
+        ? t.addEventListener(
+            'load',
+            a,
+        )
+        : t.attachEvent && t.attachEvent(
+            'onload',
+            a,
+        ), setTimeout(function () {
+          t.rel = 'stylesheet', t.media = 'only x';
+        }), setTimeout(
+            a,
+            3e3,
+        );
+      }, e.poly = function () {
+        if (!e.support()) {
+          for (var a = t.document.getElementsByTagName('link'), n = 0; n < a.length; n++) {
+            var o = a[n];
+            'preload' !== o.rel || 'style' !== o.getAttribute('as') || o.getAttribute(
+                'data-loadcss') || (o.setAttribute(
+                'data-loadcss',
+                !0,
+            ), e.bindMediaToggle(o));
+          }
+        }
+      }, !e.support()) {
+        e.poly();
+        var a = t.setInterval(e.poly, 500);
+        t.addEventListener
+        ? t.addEventListener(
+            'load',
+            function () {
+              e.poly(), t.clearInterval(a);
+            },
+        )
+        : t.attachEvent && t.attachEvent(
+            'onload',
+            function () {
+              e.poly(), t.clearInterval(a);
+            },
+        );
+      }
+      'undefined' != typeof exports
+      ? exports.loadCSS = loadCSS
+      : t.loadCSS = loadCSS;
+    }('undefined' != typeof global
+      ? global
+      : this);
+  </script>
+</head>
+<body class="bg-white">
+
+<div class="d-flex flex-column justify-content-center align-item-center full-height" style="height: 100vh;">
+  <div class="text-center">
+    <svg width="170"
+         height="150"
+         xmlns="http://www.w3.org/2000/svg">
+      <path fill="none"
+            d="M-1-1h172v152H-1z"></path>
+      <g>
+        <path fill="#76838f"
+              d="M146.6 7.45l-19.15 20.81C86.85 10.53 38.6 19.6 5.8 55.24l11.35 12.33c26.42-28.52 64.36-37.19 97.7-25.62L101.74 56.2c-25.54-5.79-53.2 2.11-73.06 23.89l11.35 12.33c12.95-14.06 30.15-21 47.34-20.42l-19.5 21.2a46.52 46.52 0 0 0-16.49 11.75l2.84 3.08-20.57 21.97 6.2 6.74L152.8 14.2l-6.2-6.75zM74.08 129.62l11.34 12.34 11.35-12.34a14.98 14.98 0 0 0-22.7 0zM79.4 107.66c10.1-2.12 21.1 1.15 28.9 9.63l11.35-12.33A47.06 47.06 0 0 0 95.18 90.7L79.4 107.66zM108.12 76.44a64.48 64.48 0 0 1 22.87 16l11.35-12.34a78.28 78.28 0 0 0-21.99-16.96l-12.23 13.3zM144.11 37.32l-11.7 12.72a98.4 98.4 0 0 1 21.46 17.53l11.34-12.33a125.42 125.42 0 0 0-21.1-17.92z"></path>
+      </g>
+    </svg>
+    <p class="py-2 text-black-50">
+      Por favor, verifique sua conexão com a
+      internet.
+    </p>
+    <a href="/"
+       class="btn-primary btn">Voltar para o ínicio
+    </a>
+  </div>
+</div>
+
+<script src="/js/frontend.js"></script>
+</body>
+</html>

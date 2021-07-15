@@ -1,8 +1,7 @@
 module.exports = (function () {
   return [
     'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/popper.js/dist/umd/popper.min.js',
-    'node_modules/bootstrap/dist/js/bootstrap.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
     // 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
     'node_modules/jquery-maskmoney/dist/jquery.maskMoney.min.js',
     'node_modules/jquery.maskedinput/src/jquery.maskedinput.js',
