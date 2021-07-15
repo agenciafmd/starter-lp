@@ -1,4 +1,26 @@
 {
     "/public/css/frontend.css": "/public/css/frontend.css",
-    "/public/js/frontend.js": "/public/js/frontend.js"
+    "/mix.js.map": "/mix.js.map",
+    "/public/css/frontend.css.map": "/public/css/frontend.css.map",
+    "/public/js/frontend.js": "/public/js/frontend.js",
+    "/public/images/apple-touch-icon.png": "/public/images/apple-touch-icon.png",
+    "/public/images/favicon.ico": "/public/images/favicon.ico",
+    "/public/images/icon-192x192.png": "/public/images/icon-192x192.png",
+    "/public/images/icon-512x512.png": "/public/images/icon-512x512.png",
+    "/public/images/mstile-150x150.png": "/public/images/mstile-150x150.png",
+    "/public/images/safari-pinned-tab.svg": "/public/images/safari-pinned-tab.svg",
+    "/public/images/loading.gif": "/public/images/loading.gif",
+    "/public/images/logo-amp.png": "/public/images/logo-amp.png",
+    "/public/images/logo-email.png": "/public/images/logo-email.png",
+    "/public/images/logo.png": "/public/images/logo.png",
+    "/public/images/sem-imagem.jpg": "/public/images/sem-imagem.jpg",
+    "/public/images/launch-1125x2436.png": "/public/images/launch-1125x2436.png",
+    "/public/images/launch-1242x2148.png": "/public/images/launch-1242x2148.png",
+    "/public/images/launch-1536x2048.png": "/public/images/launch-1536x2048.png",
+    "/public/images/launch-1668x2224.png": "/public/images/launch-1668x2224.png",
+    "/public/images/launch-2048x2732.png": "/public/images/launch-2048x2732.png",
+    "/public/images/launch-640x1136.png": "/public/images/launch-640x1136.png",
+    "/public/images/launch-750x1294.png": "/public/images/launch-750x1294.png",
+    "/public/images/video-film.png": "/public/images/video-film.png",
+    "/public/favicon.ico": "/public/favicon.ico"
 }

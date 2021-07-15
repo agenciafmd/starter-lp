@@ -82,7 +82,7 @@ typings/
 .serverless
 
 # Mixd
-resources/js/environment.js
+#resources/js/environment.js
 
 *.zip
 

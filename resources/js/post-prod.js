@@ -1,7 +1,3 @@
-const dotenv = require('dotenv');
-
-dotenv.config();
-
 const environment = require('./environment.js');
 
 const fs = require('fs');

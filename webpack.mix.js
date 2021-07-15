@@ -1,6 +1,8 @@
 let mix = require('laravel-mix');
 let SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 let frontendImports = require('./resources/js/frontend-imports');
+const dotenv = require('dotenv');
+dotenv.config();
 const environment = require('./resources/js/environment.js');
 
 const httpRegex = 'http:\\/\\/|https:\\/\\/';
