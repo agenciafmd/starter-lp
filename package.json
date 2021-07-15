@@ -30,6 +30,7 @@
   "dependencies": {
     "@fancyapps/fancybox": "^3.5.7",
     "bootstrap": "^5.0.2",
+    "dotenv": "^10.0.0",
     "jquery": "^3.5.1",
     "jquery-maskmoney": "^3.0.2",
     "jquery.maskedinput": "^1.4.1",
