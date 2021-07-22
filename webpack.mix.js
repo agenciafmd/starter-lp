@@ -1,4 +1,7 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
+require('laravel-mix-purgecss');
+require('laravel-mix-criticalcss');
+const path = require('path');
 let SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 let frontendImports = require('./resources/js/frontend-imports');
 const environment = require('./resources/js/environment.js');
@@ -7,9 +10,6 @@ const postProd = require('./resources/js/post-prod');
 
 const httpRegex = 'http:\\/\\/|https:\\/\\/';
 const projectProxy = environment.domain.replace(new RegExp(httpRegex), '');
-
-require('laravel-mix-purgecss');
-require('laravel-mix-criticalcss');
 
 /*
  |--------------------------------------------------------------------------
@@ -22,103 +22,55 @@ require('laravel-mix-criticalcss');
  |
  */
 
-/*
- * USAGE
- * <svg role="img">
- *   <use xlink:href="/svg/sprite.svg#050-santa-claus"/>
- * </svg>
- * <svg role="img">
- *   <use xlink:href="/svg/sprite.svg#049-deer"/>
- * </svg>
- * */
-let wpConfig = {
-  plugins: [
-    new SVGSpritemapPlugin('resources/svg/*.svg', {
-      output: {
-        filename: 'public/svg/sprite.svg',
-        svgo: {
-          removeTitle: true,
-        },
-        chunk: {
-          name: '../resources/js/spritemap',
-        },
-      },
-      sprite: {
-        prefix: false,
-      },
-    }),
-  ],
-};
-
-mix.options({
-  imgLoaderOptions: {
-    enabled: true,
-    gifsicle: {},
-    mozjpeg: {
-      quality: 85,
-      progressive: true,
-    },
-    optipng: {
-      enabled: false,
-    },
-    pngquant: {
-      quality: '85-90',
-      speed: 4,
-    },
-    svgo: {},
-  },
-});
-
 mix
     .sass('resources/sass/frontend.scss', 'public/css')
-    .options({
-      processCssUrls: false,
-      //     postCss: [
-      //         require('postcss-sprites')({
-      //             spritePath: 'images'
-      //         }),
-      //     ]
-    })
-    .copyDirectory('resources/fonts', 'public/fonts')
-    .copyDirectory('resources/html', 'public')
-    //.copyDirectory('resources/images', 'public/images')
-    //.copy('resources/images/*', 'public/images')
-    .babel(frontendImports, 'public/js/frontend.js');
-
-if (!mix.inProduction()) {
-  wpConfig.devtool = 'source-map';
-  mix.sourceMaps()
-      // .copyDirectory('resources/images', 'public/images')
-      .copy('resources/images/**/*', 'public/images')
-      .copy('resources/images/icons/favicon.ico', 'public');
-}
-
-mix.webpackConfig(wpConfig);
-
-mix
     .purgeCss({
-      enabled: mix.inProduction(),
-      globs: [
-        path.join(__dirname, 'resources/html/*.html'),
-        path.join(__dirname, 'resources/js/**/*.js'),
-        path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
+      // enabled: mix.inProduction(),
+      extend: {
+        content: [
+          path.join(__dirname, 'resources/html/*.html'),
+          path.join(__dirname, 'resources/js/**/*.js'),
+          path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
 
-        path.join(__dirname, 'node_modules/swiper/**/*.js'),
-        path.join(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
-        path.join(__dirname, 'node_modules/select2/dist/**/*.js'),
-        path.join(__dirname, 'node_modules/sweetalert2/dist/*.js'),
-        path.join(
-            __dirname,
-            'node_modules/bootstrap/dist/js/bootstrap.min.js',
-        ),
-      ],
+          path.join(__dirname, 'node_modules/swiper/**/*.js'),
+          path.join(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
+          path.join(__dirname, 'node_modules/select2/dist/**/*.js'),
+          path.join(__dirname, 'node_modules/sweetalert2/dist/*.js'),
+          path.join(
+              __dirname,
+              'node_modules/bootstrap/dist/js/bootstrap.min.js',
+          ),
+        ],
+      },
       // Include classes we don't have direct access
-      whitelistPatterns: [/hs-*/, /tns-*/, /js-*/, /swiper-*/],
-    });
-
-//critical path
-
-mix
+      safelist: [/hs-*/, /tns-*/, /js-*/, /swiper-*/],
+    })
+    .options({
+      imgLoaderOptions: {
+        enabled: true,
+        gifsicle: {},
+        mozjpeg: {
+          quality: 85,
+          progressive: true,
+        },
+        optipng: {
+          enabled: false,
+        },
+        pngquant: {
+          quality: '85-90',
+          speed: 4,
+        },
+        svgo: {},
+      },
+      processCssUrls: false,
+    })
+    .copy('resources/fonts', 'public/fonts')
+    .copy('resources/images/**', 'public/images')
+    .copy([
+      'resources/images/icons/favicon.ico',
+      'resources/html/**',
+    ], 'public')
+    .js(frontendImports, 'public/js/frontend.js')
     .criticalCss({
       enabled: mix.inProduction(),
       paths: {
@@ -140,16 +92,48 @@ mix
 
       if (mix.inProduction()) {
 
-        repositionTagsProduction();
-        postProd.generate(environment.pages);
-        criticalPath.generate(environment.pages);
+        postProd.generate(environment.pages)
+                .then(() => {
+
+                  criticalPath.generate(environment.pages);
+                });
       }
     });
 
-function repositionTagsProduction() {
+/*
+ * USAGE
+ * <svg role="img">
+ *   <use xlink:href="/svg/sprite.svg#050-santa-claus"/>
+ * </svg>
+ * <svg role="img">
+ *   <use xlink:href="/svg/sprite.svg#049-deer"/>
+ * </svg>
+ * */
+const wpConfig = {
+  plugins: [
+    new SVGSpritemapPlugin('resources/svg/*.svg', {
+      output: {
+        filename: 'public/svg/sprite.svg',
+        svgo: {
+          removeTitle: true,
+        },
+        chunk: {
+          name: '../resources/js/spritemap',
+        },
+      },
+      sprite: {
+        prefix: false,
+      },
+    }),
+  ],
+};
 
-  mix.copyDirectory('resources/html', 'public');
+if (!mix.inProduction()) {
+  wpConfig.devtool = 'source-map';
+  mix.sourceMaps();
 }
+
+mix.webpackConfig(wpConfig);
 
 /*
  |--------------------------------------------------------------------------
