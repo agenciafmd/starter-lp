@@ -41,9 +41,9 @@ mix
               'node_modules/bootstrap/dist/js/bootstrap.min.js',
           ),
         ],
+        // Include classes we don't have direct access
+        safelist: [/hs-*/, /tns-*/, /js-*/, /swiper-*/],
       },
-      // Include classes we don't have direct access
-      safelist: [/hs-*/, /tns-*/, /js-*/, /swiper-*/],
     })
     .options({
       imgLoaderOptions: {
