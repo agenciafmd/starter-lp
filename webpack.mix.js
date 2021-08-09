@@ -70,7 +70,7 @@ mix
       'resources/images/icons/favicon.ico',
       'resources/html/**',
     ], 'public')
-    .js(frontendImports, 'public/js/frontend.js')
+    .babel(frontendImports, 'public/js/frontend.js')
     .criticalCss({
       enabled: mix.inProduction(),
       paths: {
