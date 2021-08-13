@@ -571,7 +571,5 @@ window.addEventListener('load', function () {
     // setupLax();
   }
 
-  // setupInfiniteScroll();
-
   setupFmdHeader();
 });

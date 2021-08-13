@@ -10,40 +10,46 @@ function generatePostProd(pages) {
     return;
   }
 
-  const convertedPages = getFilePathsToApplyPostProd(pages);
+  return new Promise((resolve, reject) => {
 
-  convertedPages.forEach((postProdItem) => {
+    const convertedPages = getFilePathsToApplyPostProd(pages);
 
-    fs.readFile(postProdItem.pagePath, 'utf8', (error, data) => {
+    convertedPages.forEach((postProdItem) => {
 
-      if (error) {
-
-        console.log(error);
-        return;
-      }
-
-      Object.entries(environment.postStrings).forEach(([key, value]) => {
-
-        const pattern = new RegExp(`<!--fmd:${ key }-->`, 'g');
-
-        data = data.replace(
-            pattern,
-            value,
-        );
-      });
-
-      fs.writeFile(postProdItem.pagePath, data, 'utf-8', function (error) {
+      fs.readFile(postProdItem.pagePath, 'utf8', (error, data) => {
 
         if (error) {
 
           console.log(error);
+          reject(error);
           return;
         }
 
-        console.log(` --FMD--\n Post-Prod added to the Page ${ postProdItem.namePage } in /public`);
+        Object.entries(environment.postStrings).forEach(([key, value]) => {
+
+          const pattern = new RegExp(`<!--fmd:${ key }-->`, 'g');
+
+          data = data.replace(
+              pattern,
+              value,
+          );
+        });
+
+        fs.writeFile(postProdItem.pagePath, data, 'utf-8', function (error) {
+
+          if (error) {
+
+            console.log(error);
+            reject(error);
+            return;
+          }
+
+          console.log(` --FMD--\n Post-Prod added to the page ${ postProdItem.namePage }.html in /public`);
+          resolve(data);
+        });
       });
     });
-  });
+  })
 }
 
 function getFilePathsToApplyPostProd(pageOptions) {

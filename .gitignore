@@ -83,7 +83,6 @@ typings/
 
 # Mixd
 resources/js/environment.js
-
 *.zip
-
 vendor/
+*.LICENSE.txt
