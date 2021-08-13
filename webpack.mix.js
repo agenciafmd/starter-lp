@@ -12,15 +12,32 @@ const httpRegex = 'http:\\/\\/|https:\\/\\/';
 const projectProxy = environment.domain.replace(new RegExp(httpRegex), '');
 
 /*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
+ * USAGE
+ * <svg role="img">
+ *   <use xlink:href="/svg/sprite.svg#050-santa-claus"></use>
+ * </svg>
+ * <svg role="img">
+ *   <use xlink:href="/svg/sprite.svg#049-deer"></use>
+ * </svg>
+ * */
+const wpConfig = {
+  plugins: [
+    new SVGSpritemapPlugin('resources/svg/*.svg', {
+      output: {
+        filename: 'public/svg/sprite.svg',
+        svgo: {
+          removeTitle: true,
+        },
+        chunk: {
+          name: '../resources/js/spritemap',
+        },
+      },
+      sprite: {
+        prefix: false,
+      },
+    }),
+  ],
+};
 
 mix
     .sass('resources/sass/frontend.scss', 'public/css')
@@ -45,6 +62,39 @@ mix
         safelist: [/hs-*/, /tns-*/, /js-*/, /swiper-*/],
       },
     })
+    .criticalCss({
+      enabled: mix.inProduction(),
+      paths: {
+        base: 'http://' + environment.domain,
+        templates: 'public/css/critical/',
+        suffix: '',
+      },
+      urls: environment.pages,
+      dimensions: [
+        {
+          width: 375,
+          height: 667,
+        },
+        {
+          width: 1024,
+          height: 768,
+        },
+        {
+          width: 1280,
+          height: 720,
+        },
+        {
+          width: 1366,
+          height: 768,
+        },
+        {
+          width: 1920,
+          height: 1080,
+        },
+      ],
+      ignore: ['@font-face'],
+    })
+    .babel(frontendImports, 'public/js/frontend.js')
     .options({
       imgLoaderOptions: {
         enabled: true,
@@ -70,24 +120,22 @@ mix
       'resources/images/icons/favicon.ico',
       'resources/html/**',
     ], 'public')
-    .babel(frontendImports, 'public/js/frontend.js')
-    .criticalCss({
-      enabled: mix.inProduction(),
-      paths: {
-        base: 'http://' + environment.domain,
-        templates: 'public/css/critical/',
-        suffix: '',
-      },
-      urls: environment.pages,
-      dimensions: [
-        { width: 375, height: 667 },
-        { width: 1024, height: 768 },
-        { width: 1280, height: 720 },
-        { width: 1366, height: 768 },
-        { width: 1920, height: 1080 },
+    .browserSync({
+      host: '192.168.10.10',
+      proxy: projectProxy,
+      open: false,
+      files: [
+        'resources/html/**/*.html',
+        'resources/js/**/*.js',
+        'resources/sass/**/*.scss',
+        'resources/svg/**/*.svg',
       ],
-      ignore: ['@font-face'],
+      watchOptions: {
+        usePolling: true,
+        interval: 500,
+      },
     })
+    .webpackConfig(wpConfig)
     .then(() => {
 
       if (mix.inProduction()) {
@@ -100,62 +148,8 @@ mix
       }
     });
 
-/*
- * USAGE
- * <svg role="img">
- *   <use xlink:href="/svg/sprite.svg#050-santa-claus"/>
- * </svg>
- * <svg role="img">
- *   <use xlink:href="/svg/sprite.svg#049-deer"/>
- * </svg>
- * */
-const wpConfig = {
-  plugins: [
-    new SVGSpritemapPlugin('resources/svg/*.svg', {
-      output: {
-        filename: 'public/svg/sprite.svg',
-        svgo: {
-          removeTitle: true,
-        },
-        chunk: {
-          name: '../resources/js/spritemap',
-        },
-      },
-      sprite: {
-        prefix: false,
-      },
-    }),
-  ],
-};
-
 if (!mix.inProduction()) {
+
   wpConfig.devtool = 'source-map';
   mix.sourceMaps();
 }
-
-mix.webpackConfig(wpConfig);
-
-/*
- |--------------------------------------------------------------------------
- | BrowserSync
- |--------------------------------------------------------------------------
- */
-mix.browserSync({
-  host: '192.168.10.10',
-  proxy: projectProxy,
-  open: false,
-  files: [
-    'resources/html/**/*.html',
-    'resources/js/**/*.js',
-    'resources/sass/**/*.scss',
-    'resources/svg/**/*.svg',
-    // 'public/js/**/*.js',
-    // 'public/css/**/*.css',
-    // 'public/*.html',
-  ],
-  watchOptions: {
-    usePolling: true,
-    interval: 500,
-  },
-});
-
