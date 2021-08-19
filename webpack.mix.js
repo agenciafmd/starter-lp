@@ -125,10 +125,12 @@ mix
       proxy: projectProxy,
       open: false,
       files: [
-        'resources/html/**/*.html',
-        'resources/js/**/*.js',
-        'resources/sass/**/*.scss',
-        'resources/svg/**/*.svg',
+        'public/css/**/*.css',
+        'public/fonts/*',
+        'public/images/*',
+        'public/js/**/*.js',
+        'public/svg/*',
+        'public/*.html',
       ],
       watchOptions: {
         usePolling: true,
