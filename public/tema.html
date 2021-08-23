@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Tema</title>
+    <meta name="description" content="Página para visualização de todos os componentes">
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible"
@@ -704,26 +705,50 @@
                         <button class="btn btn-lg btn-primary" type="button">Block button</button>
                     </div>
                 </div>
-                
-                <div class="bs-component mb-3">
-                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" id="btncheck1" checked autocomplete="off">
-                        <label class="btn btn-primary" for="btncheck1">Checkbox 1</label>
-                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-                        <label class="btn btn-primary" for="btncheck2">Checkbox 2</label>
-                        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
-                        <label class="btn btn-primary" for="btncheck3">Checkbox 3</label>
+    
+                <div class="bs-component">
+                    <h2>
+                        Share buttons
+                    </h2>
+                    <div class="mt-1">
+                        <a role="button"
+                           data-fmd-share-btn-fbidentification="123456789123456"
+                           class="btn btn-primary js-btn-share">
+                            share
+                        </a>
                     </div>
                 </div>
-                
-                <div class="bs-component mb-3">
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
+
+            </div>
+            <div class="col-lg-5">
+
+                <p class="bs-component">
+                    <button type="button"
+                            class="btn btn-primary btn-lg btn-block">Block level
+                                                                     button
+                    </button>
+                </p>
+
+                <div class="bs-component"
+                     style="margin-bottom: 15px;">
+                    <div class="btn-group btn-group-toggle"
+                         data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                            <input type="checkbox"
+                                   checked
+                                   autocomplete="off">
+                            Active
+                        </label>
+                        <label class="btn btn-primary">
+                            <input type="checkbox"
+                                   autocomplete="off">
+                            Check
+                        </label>
+                        <label class="btn btn-primary">
+                            <input type="checkbox"
+                                   autocomplete="off">
+                            Check
+                        </label>
                     </div>
                 </div>
                 
