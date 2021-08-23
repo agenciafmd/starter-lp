@@ -4,6 +4,9 @@ function environment() {
     production: process.env.APP_ENV === 'prod' || process.env.APP_ENV === 'production',
     domain: process.env.APP_URL,
     folder: '',
+    pages: [
+      { url: 'index', template: 'index' },
+    ],
     postStrings: {
       titlePage: process.env.APP_NAME,
       metaDescription: process.env.APP_DESCRIPTION,
