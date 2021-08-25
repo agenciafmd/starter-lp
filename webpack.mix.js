@@ -44,25 +44,21 @@ const wpConfig = {
 mix
     .sass('resources/sass/frontend.scss', 'public/css')
     .purgeCss({
-      // enabled: mix.inProduction(),
-      extend: {
-        content: [
-          path.join(__dirname, 'resources/html/*.html'),
-          path.join(__dirname, 'resources/js/**/*.js'),
-          path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
-
-          path.join(__dirname, 'node_modules/swiper/**/*.js'),
-          path.join(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
-          path.join(__dirname, 'node_modules/select2/dist/**/*.js'),
-          path.join(__dirname, 'node_modules/sweetalert2/dist/*.js'),
-          path.join(
-              __dirname,
-              'node_modules/bootstrap/dist/js/bootstrap.min.js',
-          ),
-        ],
-        // Include classes we don't have direct access
-        safelist: [/hs-*/, /tns-*/, /js-*/, /swiper-*/],
-      },
+      enabled: mix.inProduction(),
+      globs: [
+        path.join(__dirname, 'packages/agenciafmd/frontend/src/**/*.php'),
+        path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
+        path.join(__dirname, 'node_modules/swiper/**/*.js'),
+        path.join(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
+        path.join(__dirname, 'node_modules/select2/dist/**/*.js'),
+        path.join(__dirname, 'node_modules/sweetalert2/dist/*.js'),
+        path.join(
+            __dirname,
+            'node_modules/bootstrap/dist/js/bootstrap.min.js',
+        ),
+      ],
+      // Include classes we don't have direct access
+      whitelistPatterns: [/hs-*/, /tns-*/, /js-*/, /swiper-*/],
     })
     .criticalCss({
       enabled: mix.inProduction(),
@@ -97,6 +93,7 @@ mix
       ignore: ['@font-face'],
     })
     .babel(frontendImports, 'public/js/frontend.js')
+    .sourceMaps(false, 'source-map')
     .options({
       imgLoaderOptions: {
         enabled: true,
@@ -151,9 +148,3 @@ mix
                 });
       }
     });
-
-if (!mix.inProduction()) {
-
-  wpConfig.devtool = 'source-map';
-  mix.sourceMaps();
-}
