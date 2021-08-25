@@ -93,6 +93,7 @@ mix
       ignore: ['@font-face'],
     })
     .babel(frontendImports, 'public/js/frontend.js')
+    .sourceMaps(false, 'source-map')
     .options({
       imgLoaderOptions: {
         enabled: true,
@@ -145,9 +146,3 @@ mix
                 });
       }
     });
-
-if (!mix.inProduction()) {
-
-  wpConfig.devtool = 'source-map';
-  mix.sourceMaps();
-}
