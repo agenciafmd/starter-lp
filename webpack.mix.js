@@ -5,6 +5,8 @@ require('laravel-mix-webp');
 const path = require('path');
 let SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 let frontendImports = require('./resources/js/frontend-imports');
+const dotenv = require('dotenv');
+dotenv.config();
 const environment = require('./resources/js/environment.js');
 const criticalPath = require('./resources/js/critical-path');
 const postProd = require('./resources/js/post-prod');
