@@ -1,10 +1,8 @@
 {
-    "/../resources/js/spritemap.js": "/../resources/js/spritemap.js",
     "/public/css/frontend.css": "/public/css/frontend.css",
+    "/mix.js.map": "/mix.js.map",
+    "/public/css/frontend.css.map": "/public/css/frontend.css.map",
     "/public/js/frontend.js": "/public/js/frontend.js",
-    "/public/fonts/Roboto-Bold.woff2": "/public/fonts/Roboto-Bold.woff2",
-    "/public/fonts/Roboto-Light.woff2": "/public/fonts/Roboto-Light.woff2",
-    "/public/fonts/Roboto-Regular.woff2": "/public/fonts/Roboto-Regular.woff2",
     "/public/images/apple-touch-icon.png": "/public/images/apple-touch-icon.png",
     "/public/images/favicon.ico": "/public/images/favicon.ico",
     "/public/images/icon-192x192.png": "/public/images/icon-192x192.png",
@@ -24,9 +22,5 @@
     "/public/images/launch-640x1136.png": "/public/images/launch-640x1136.png",
     "/public/images/launch-750x1294.png": "/public/images/launch-750x1294.png",
     "/public/images/video-film.png": "/public/images/video-film.png",
-    "/public/favicon.ico": "/public/favicon.ico",
-    "/public/index.html": "/public/index.html",
-    "/public/offline.html": "/public/offline.html",
-    "/public/robots.txt": "/public/robots.txt",
-    "/public/tema.html": "/public/tema.html"
+    "/public/favicon.ico": "/public/favicon.ico"
 }
