@@ -47,7 +47,8 @@ mix
     .purgeCss({
       extend: {
         content: [
-          path.join(__dirname, 'packages/agenciafmd/frontend/src/**/*.php'),
+          path.join(__dirname, 'resources/html/*.html'),
+          path.join(__dirname, 'resources/js/**/*.js'),
           path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
           path.join(__dirname, 'node_modules/swiper/**/*.js'),
           path.join(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
