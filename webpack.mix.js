@@ -45,13 +45,10 @@ const wpConfig = {
 mix
     .sass('resources/sass/frontend.scss', 'public/css')
     .purgeCss({
-      // enabled: mix.inProduction(),
       extend: {
         content: [
-          path.join(__dirname, 'resources/html/*.html'),
-          path.join(__dirname, 'resources/js/**/*.js'),
+          path.join(__dirname, 'packages/agenciafmd/frontend/src/**/*.php'),
           path.join(__dirname, 'node_modules/@fancyapps/fancybox/dist/*.js'),
-
           path.join(__dirname, 'node_modules/swiper/**/*.js'),
           path.join(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
           path.join(__dirname, 'node_modules/select2/dist/**/*.js'),
@@ -98,6 +95,7 @@ mix
       ignore: ['@font-face'],
     })
     .babel(frontendImports, 'public/js/frontend.js')
+    .sourceMaps(false, 'source-map')
     .options({
       imgLoaderOptions: {
         enabled: true,
@@ -135,10 +133,12 @@ mix
       proxy: projectProxy,
       open: false,
       files: [
-        'resources/html/**/*.html',
-        'resources/js/**/*.js',
-        'resources/sass/**/*.scss',
-        'resources/svg/**/*.svg',
+        'public/css/**/*.css',
+        'public/fonts/*',
+        'public/images/*',
+        'public/js/**/*.js',
+        'public/svg/*',
+        'public/*.html',
       ],
       watchOptions: {
         usePolling: true,
@@ -157,9 +157,3 @@ mix
                 });
       }
     });
-
-if (!mix.inProduction()) {
-
-  wpConfig.devtool = 'source-map';
-  mix.sourceMaps();
-}
