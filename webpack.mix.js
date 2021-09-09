@@ -25,7 +25,7 @@ const projectProxy = environment.domain.replace(new RegExp(httpRegex), '');
  * */
 const wpConfig = {
   plugins: [
-    new SVGSpritemapPlugin('resources/svg/*.svg', {
+    new SVGSpritemapPlugin('resources/svg/sprite/*.svg', {
       output: {
         filename: 'public/svg/sprite.svg',
         svgo: {
@@ -125,6 +125,7 @@ mix
       }
     })
     .copy('resources/images/**', 'public/images')
+    .copy('resources/svg/*.svg', 'public/svg')
     .copy([
       'resources/images/icons/favicon.ico',
       'resources/html/**',
