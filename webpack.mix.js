@@ -8,7 +8,7 @@ let frontendImports = require('./resources/js/frontend-imports');
 const dotenv = require('dotenv');
 dotenv.config();
 const environment = require('./resources/js/environment.js');
-const criticalPath = require('./resources/js/critical-path');
+const criticalCss = require('./resources/js/critical-css');
 const postProd = require('./resources/js/post-prod');
 
 const httpRegex = 'http:\\/\\/|https:\\/\\/';
@@ -66,11 +66,14 @@ mix
     .criticalCss({
       enabled: mix.inProduction(),
       paths: {
-        base: 'http://' + environment.domain,
+        base: `${ environment.domain }/`,
         templates: 'public/css/critical/',
         suffix: '',
       },
       urls: environment.pages,
+      options: {
+        minify: true,
+      },
       dimensions: [
         {
           width: 375,
@@ -121,8 +124,8 @@ mix
       from: 'resources/images',
       to: 'resources/images',
       imageminWebpOptions: {
-        quality: 95
-      }
+        quality: 95,
+      },
     })
     .copy('resources/images/**', 'public/images')
     .copy('resources/svg/*.svg', 'public/svg')
@@ -155,7 +158,7 @@ mix
         postProd.generate(environment.pages)
                 .then(() => {
 
-                  criticalPath.generate(environment.pages);
+                  criticalCss.generate(environment.pages);
                 });
       }
     });

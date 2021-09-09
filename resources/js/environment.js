@@ -5,7 +5,14 @@ function environment() {
     domain: process.env.APP_URL,
     folder: '',
     pages: [
-      { url: 'index', template: 'index' },
+      {
+        url: '', // or index.html
+        template: 'index',
+      },
+      {
+        url: 'tema.html',
+        template: 'tema',
+      },
     ],
     postStrings: {
       titlePage: process.env.APP_NAME,
