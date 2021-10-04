@@ -14076,11 +14076,17 @@ function setupCepSearch() {
 }
 
 function setupPopover() {
-  $('[data-toggle="popover"]').popover();
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+  popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl);
+  });
 }
 
 function setupTooltip() {
-  $('[data-toggle="tooltip"]').tooltip();
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
 }
 
 function setupAnchorReloadPrevention() {
@@ -14090,7 +14096,7 @@ function setupAnchorReloadPrevention() {
 }
 
 function setupShareWindow() {
-  $('.share').click(function (e) {
+  $('.js-btn-share').click(function (e) {
     e.preventDefault();
     window.open($(this).attr('href'), 'shareWindow', 'height=450, width=550, top=' + ($(window).height() / 2 - 275) + ', left=' + ($(window).width() / 2 - 225) + ', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
     return false;
