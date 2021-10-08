@@ -8,7 +8,7 @@ module.exports = (function () {
     // 'node_modules/select2/dist/js/select2.min.js',
     'node_modules/sweetalert2/dist/sweetalert2.min.js',
     'node_modules/share-api-polyfill/dist/share-min.js',
-    // 'node_modules/swiper/swiper-bundle.min.js',
+    'node_modules/swiper/swiper-bundle.min.js',
     // 'node_modules/wow.js/dist/wow.min.js',
     // 'node_modules/lax.js/lib/lax.min.js',
     // Vendors
@@ -18,7 +18,7 @@ module.exports = (function () {
     'resources/js/helpers/cpf-cnpj-validators.js',
     // 'resources/js/helpers/user-interaction-helpers.js',
     // Components
-    // 'resources/js/components/swiper.js',
+    'resources/js/components/swiper.js',
     'resources/js/components/fmd-header.js',
     // 'resources/js/components/fancybox.js',
     // 'resources/js/components/lax.js',
