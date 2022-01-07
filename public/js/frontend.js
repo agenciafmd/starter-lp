@@ -13123,7 +13123,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   }();
 }]);
 /**
- * Swiper 7.0.5
+ * Swiper 7.0.4
  * Most modern mobile touch slider and framework with hardware accelerated transitions
  * https://swiperjs.com
  *
@@ -13131,7 +13131,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
  *
  * Released under the MIT License
  *
- * Released on: September 9, 2021
+ * Released on: September 8, 2021
  */
 
 !function (e, t) {
@@ -15313,7 +15313,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       var a = this;
       a.__swiper__ = !0, a.support = y(), a.device = E({
         userAgent: s.userAgent
-      }), a.browser = T(), a.eventsListeners = {}, a.eventsAnyListeners = [], a.modules = _toConsumableArray(a.__modules__), s.modules && Array.isArray(s.modules) && (_a$modules = a.modules).push.apply(_a$modules, _toConsumableArray(s.modules));
+      }), a.browser = T(), a.eventsListeners = {}, a.eventsAnyListeners = [], void 0 === a.modules && (a.modules = []), s.modules && Array.isArray(s.modules) && (_a$modules = a.modules).push.apply(_a$modules, _toConsumableArray(s.modules));
       var i = {};
       a.modules.forEach(function (e) {
         e({
@@ -15604,8 +15604,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     }, {
       key: "installModule",
       value: function installModule(e) {
-        H.prototype.__modules__ || (H.prototype.__modules__ = []);
-        var t = H.prototype.__modules__;
+        H.prototype.modules || (H.prototype.modules = []);
+        var t = H.prototype.modules;
         "function" == typeof e && t.indexOf(e) < 0 && t.push(e);
       }
     }, {
@@ -15624,8 +15624,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     var r = a();
     return e.params.createElements && Object.keys(i).forEach(function (a) {
       if (!s[a] && !0 === s.auto) {
-        var _n13 = e.$el.children(".".concat(i[a]))[0];
-        _n13 || (_n13 = r.createElement("div"), _n13.className = i[a], e.$el.append(_n13)), s[a] = _n13, t[a] = _n13;
+        var _n13 = r.createElement("div");
+
+        _n13.className = i[a], e.$el.append(_n13), s[a] = _n13, t[a] = _n13;
       }
     }), s;
   }
@@ -15664,7 +15665,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     s.loop && t.loopCreate(), s.observer || t.update(), t.slideTo(r, 0, !1);
   }
 
-  function _(e, t) {
+  function V(e, t) {
     var s = this,
         a = s.$wrapperEl,
         i = s.params,
@@ -15698,7 +15699,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     i.loop && s.loopCreate(), i.observer || s.update(), i.loop ? s.slideTo(o + s.loopedSlides, 0, !1) : s.slideTo(o, 0, !1);
   }
 
-  function V(e) {
+  function q(e) {
     var t = this,
         s = t.params,
         a = t.$wrapperEl,
@@ -15719,7 +15720,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     s.loop && t.loopCreate(), s.observer || t.update(), s.loop ? t.slideTo(l + t.loopedSlides, 0, !1) : t.slideTo(l, 0, !1);
   }
 
-  function q() {
+  function F() {
     var e = this,
         t = [];
 
@@ -15730,7 +15731,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     e.removeSlide(t);
   }
 
-  function F(e) {
+  function _(e) {
     var t = e.effect,
         s = e.swiper,
         a = e.on,
@@ -17937,9 +17938,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     Object.assign(e, {
       appendSlide: R.bind(e),
       prependSlide: j.bind(e),
-      addSlide: _.bind(e),
-      removeSlide: V.bind(e),
-      removeAllSlides: q.bind(e)
+      addSlide: V.bind(e),
+      removeSlide: q.bind(e),
+      removeAllSlides: F.bind(e)
     });
   }, function (_ref37) {
     var e = _ref37.swiper,
@@ -17950,7 +17951,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         crossFade: !1,
         transformEl: null
       }
-    }), F({
+    }), _({
       effect: "fade",
       swiper: e,
       on: s,
@@ -18004,7 +18005,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         shadowOffset: 20,
         shadowScale: .94
       }
-    }), F({
+    }), _({
       effect: "cube",
       swiper: e,
       on: s,
@@ -18099,7 +18100,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         limitRotation: !0,
         transformEl: null
       }
-    }), F({
+    }), _({
       effect: "flip",
       swiper: e,
       on: s,
@@ -18167,7 +18168,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         slideShadows: !0,
         transformEl: null
       }
-    }), F({
+    }), _({
       effect: "coverflow",
       swiper: e,
       on: s,
@@ -18254,7 +18255,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return "string" == typeof e ? e : "".concat(e, "px");
     };
 
-    F({
+    _({
       effect: "creative",
       swiper: e,
       on: s,
@@ -18336,7 +18337,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         slideShadows: !0,
         transformEl: null
       }
-    }), F({
+    }), _({
       effect: "cards",
       swiper: e,
       on: s,
@@ -19010,16 +19011,16 @@ function setupDefaultSlider() {
 //     disableOnInteraction: false,
 //   },
 //   breakpoints: {
-//     768: {
+//     [getThemeVariables().breakpoints.sm]: {
 //       slidesPerView: 2,
 //       spaceBetween: 16,
 //     },
-//     992: {
+//     [getThemeVariables().breakpoints.md]: {
 //       slidesPerView: 3,
-//       spaceBetween: 16,
+//       spaceBetween: 32,
 //     },
-//     1440: {
-//       slidesPerView: 3,
+//     [getThemeVariables().breakpoints.lg]: {
+//       slidesPerView: 4,
 //       spaceBetween: 32,
 //     },
 //   },
@@ -19164,17 +19165,18 @@ function setupFmdHeader() {
 }
 
 function getThemeVariables() {
+  var root = getComputedStyle(document.documentElement);
   var breakpoints = {
-    xs: 0,
-    sm: 425,
+    xs: Number(root.getPropertyValue('--bs-breakpoint-xs').replace('px', '')),
+    sm: Number(root.getPropertyValue('--bs-breakpoint-sm').replace('px', '')),
     // Read 'from 425px' (min-width)
-    md: 1024,
+    md: Number(root.getPropertyValue('--bs-breakpoint-md').replace('px', '')),
     // Read 'from 1024px' (min-width)
-    lg: 1366,
+    lg: Number(root.getPropertyValue('--bs-breakpoint-lg').replace('px', '')),
     // Read 'from 1366px' (min-width)
-    xl: 1680,
+    xl: Number(root.getPropertyValue('--bs-breakpoint-xl').replace('px', '')),
     // Read 'from 1680px' (min-width)
-    xxl: 1900 // Read 'from 1900px' (min-width)
+    xxl: Number(root.getPropertyValue('--bs-breakpoint-xxl').replace('px', '')) // Read 'from 1900px' (min-width)
 
   };
 
@@ -19191,14 +19193,14 @@ function getThemeVariables() {
     collapseTransitionTime: 350,
     // In milliseconds
     colors: {
-      primary: '#',
-      secondary: '#',
-      success: '#',
-      info: '#',
-      warning: '#',
-      danger: '#',
-      light: '#',
-      dark: '#'
+      primary: root.getPropertyValue('--bs-primary'),
+      secondary: root.getPropertyValue('--bs-secondary'),
+      success: root.getPropertyValue('--bs-success'),
+      info: root.getPropertyValue('--bs-info'),
+      warning: root.getPropertyValue('--bs-warning'),
+      danger: root.getPropertyValue('--bs-danger'),
+      light: root.getPropertyValue('--bs-light'),
+      dark: root.getPropertyValue('--bs-dark')
     },
     isWindowWidthUp: isWindowWidthUp,
     isWindowWidthDown: isWindowWidthDown
@@ -19348,10 +19350,34 @@ function setupSelect2() {
   });
 }
 
+function getBrowser() {
+  var userAgent = navigator.userAgent.toLowerCase();
+  var hasUserAgentSafariToken = userAgent.indexOf('safari') > -1;
+  var hasUserAgentChromeToken = userAgent.indexOf('chrome') > -1;
+
+  if (hasUserAgentSafariToken) {
+    if (hasUserAgentChromeToken) {
+      return 'chrome';
+    }
+
+    return 'safari';
+  }
+}
+
+function isSafari() {
+  return getBrowser() === 'safari';
+}
+
 function setupInputMasks() {
   function setMaskToAllElements(elements, maskOptions) {
-    Array.prototype.forEach.call(elements, function (element) {
+    elements.forEach(function (element) {
       var mask = IMask(element, maskOptions);
+      mask.on('complete', function () {
+        // Safari doesn't detect the latest input changes
+        if (isSafari()) {
+          element.dispatchEvent(new InputEvent('change'));
+        }
+      });
     });
   }
 
