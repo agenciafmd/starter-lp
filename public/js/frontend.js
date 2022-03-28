@@ -19040,13 +19040,11 @@ function setupFmdHeader() {
   }
 
   function showHeader() {
-    header.classList.remove(hideClass);
-    header.style.transform = 'none';
+    header.classList.remove(hideClass); // header.style.transform = 'none';
   }
 
   function hideHeader() {
-    header.classList.add(hideClass);
-    header.style.transform = 'translateY(-100%)';
+    header.classList.add(hideClass); // header.style.transform = 'translateY(-100%)';
   }
 
   function setStickyHeader() {
@@ -19056,15 +19054,7 @@ function setupFmdHeader() {
 
   function unsetStickyHeader() {
     header.classList.remove(fixedClass);
-    header.style.position = headerInitialPosition;
-  }
-
-  function setParentPaddingTop() {
-    var newPaddingTop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : parentPaddingTop;
-
-    if (isHeaderRelative) {
-      header.parentNode.style.paddingTop = newPaddingTop;
-    }
+    header.style.position = 'absolute';
   }
 
   function setHeaderTransition(newTransition) {
@@ -19091,17 +19081,18 @@ function setupFmdHeader() {
 
 
   var header = document.getElementsByClassName(headerClass)[0];
-  var headerInitialPosition = getComputedStyle(header)['position'];
-  var headerTransition = Number(getComputedStyle(header)['transition-duration'].replace('s', '')) * 1000; // If header is relative, set it's parent padding-top with header height
-
-  var isHeaderRelative = ['relative', 'sticky', 'initial'].includes(headerInitialPosition);
-  var parentPaddingTop = isHeaderRelative ? header.offsetHeight : '0'; // Start target where header will be fixed | Default: Window Height (100vh)
+  var headerTransition = Number(getComputedStyle(header)['transition-duration'].replace('s', '')) * 1000; // Start target where header will be fixed | Default: Window Height (100vh)
 
   var startTarget = isElementSet(startTargetClass) ? getOffsetTop(startTargetClass) : window.outerHeight; // End target where header will be shown | Default: The page bottom
 
-  var endTarget = isElementSet(endTargetClass) ? getOffsetTop(endTargetClass) : document.body.scrollHeight; // Scroll event listener
+  var endTarget = isElementSet(endTargetClass) ? getOffsetTop(endTargetClass) : document.body.scrollHeight; // Set variable that is used to apply padding-top to the body
 
-  $(window).scroll(function (event) {
+  header.style.position = 'absolute';
+  setTimeout(function () {
+    document.documentElement.style.setProperty('--header-height', header.offsetHeight + 'px');
+  }, headerTransition); // Scroll event listener
+
+  window.addEventListener('scroll', function () {
     didScroll = true;
   }); // Watcher that calls function if the window was scrolled
 
@@ -19137,7 +19128,6 @@ function setupFmdHeader() {
       window.clearTimeout(fixedTimer);
       fixedTimer = window.setTimeout(function () {
         setStickyHeader();
-        setParentPaddingTop();
       }, headerTransition);
     } // If scroll down and passes header height
 
@@ -19157,7 +19147,6 @@ function setupFmdHeader() {
 
     if (st === 0) {
       unsetStickyHeader();
-      setParentPaddingTop(0);
     }
 
     updateLastScroll();
@@ -19165,19 +19154,15 @@ function setupFmdHeader() {
 }
 
 function getThemeVariables() {
-  var root = getComputedStyle(document.documentElement);
+  var root = getComputedStyle(document.documentElement); // Read 'from --bs-breakpoint-??' (min-width)
+
   var breakpoints = {
     xs: Number(root.getPropertyValue('--bs-breakpoint-xs').replace('px', '')),
     sm: Number(root.getPropertyValue('--bs-breakpoint-sm').replace('px', '')),
-    // Read 'from 425px' (min-width)
     md: Number(root.getPropertyValue('--bs-breakpoint-md').replace('px', '')),
-    // Read 'from 1024px' (min-width)
     lg: Number(root.getPropertyValue('--bs-breakpoint-lg').replace('px', '')),
-    // Read 'from 1366px' (min-width)
     xl: Number(root.getPropertyValue('--bs-breakpoint-xl').replace('px', '')),
-    // Read 'from 1680px' (min-width)
-    xxl: Number(root.getPropertyValue('--bs-breakpoint-xxl').replace('px', '')) // Read 'from 1900px' (min-width)
-
+    xxl: Number(root.getPropertyValue('--bs-breakpoint-xxl').replace('px', ''))
   };
 
   function isWindowWidthUp(breakpoint) {
@@ -19258,8 +19243,10 @@ function preventInvalidFormSubmit() {
 }
 
 function disableButtonOnSubmit(form) {
-  var buttons = form.querySelectorAll('button');
-  buttons.forEach(function (button) {
+  var coupledFormButtons = form.querySelectorAll('button');
+  var uncoupledFormButtons = document.querySelectorAll("button[form=".concat(form.id, "]"));
+  var foundFormButtons = [].concat(_toConsumableArray(coupledFormButtons), _toConsumableArray(uncoupledFormButtons));
+  foundFormButtons.forEach(function (button) {
     button.setAttribute('disabled', 'disabled');
     var buttonText = button.innerText;
     button.innerHTML = "<span class=\"spinner-container\">\n                            <span class=\"spinner-border spinner-border-sm text-light\"\n                                  role=\"status\"></span>\n                            ".concat(buttonText, "\n                        </span>");
@@ -19623,38 +19610,26 @@ function setupShareAPI() {
   });
 }
 
-function setupDataLayerEventClickButton() {
-  var buttons = document.querySelectorAll('.js-btn-data-layer');
+function handleHeaderOverflow() {
+  var header = document.querySelector('.header');
+  var navbar = header.querySelector('.navbar');
+  var myOffcanvas = header.querySelector('.offcanvas');
 
-  if (!buttons.length) {
-    return;
-  }
+  var navbarExpandBreakpoint = _toConsumableArray(navbar.classList).find(function (navbarClass) {
+    return navbarClass.split('navbar-expand-')[1];
+  }).split('navbar-expand-')[1];
 
-  buttons.forEach(function (button) {
-    button.addEventListener('click', function (clickEvent) {
-      var nameDataLayerAction = 'data-fmd-datalayer-action';
-      var linkDataLayerAction = clickEvent.currentTarget.getAttribute(nameDataLayerAction);
-
-      if (!linkDataLayerAction) {
-        throw new Error("Adicione atributo ".concat(nameDataLayerAction, " com seu valor"));
-      }
-
-      var dataLayerOptions = getDataLayerOptions({
-        action: linkDataLayerAction
-      });
-      window.dataLayer.push(dataLayerOptions);
+  if (window.innerWidth < getThemeVariables().breakpoints[navbarExpandBreakpoint]) {
+    header.style.overflow = 'hidden';
+    myOffcanvas.addEventListener('show.bs.offcanvas', function () {
+      header.style.overflow = 'visible';
     });
-  });
-}
-
-function getDataLayerOptions(options) {
-  window.dataLayer = window.dataLayer || [];
-  return _objectSpread(_objectSpread({}, options), {}, {
-    event: options.event || 'gaEvent',
-    category: options.category || 'clique',
-    action: options.action || '',
-    label: options.label || 'enviado'
-  });
+    myOffcanvas.addEventListener('hidden.bs.offcanvas', function () {
+      header.style.overflow = 'hidden';
+    });
+  } else {
+    header.style.overflow = 'visible';
+  }
 }
 
 $(function () {
@@ -19687,5 +19662,5 @@ window.addEventListener('load', function () {
   if (window.innerWidth > getThemeVariables().breakpoints.md) {// setupLax();
   }
 
-  setupFmdHeader();
-});
+  setupFmdHeader(); // handleHeaderOverflow();
+}); // window.addEventListener('resize', handleHeaderOverflow);

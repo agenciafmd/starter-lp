@@ -544,6 +544,29 @@ function setupShareAPI() {
   });
 }
 
+function handleHeaderOverflow() {
+
+  const header = document.querySelector('.header');
+  const navbar = header.querySelector('.navbar');
+  const myOffcanvas = header.querySelector('.offcanvas');
+
+  const navbarExpandBreakpoint = [...navbar.classList].find(navbarClass => navbarClass.split('navbar-expand-')[1]).split('navbar-expand-')[1];
+
+  if (window.innerWidth < getThemeVariables().breakpoints[navbarExpandBreakpoint]) {
+    header.style.overflow = 'hidden';
+
+    myOffcanvas.addEventListener('show.bs.offcanvas', function () {
+      header.style.overflow = 'visible';
+    });
+
+    myOffcanvas.addEventListener('hidden.bs.offcanvas', function () {
+      header.style.overflow = 'hidden';
+    });
+  } else {
+    header.style.overflow = 'visible';
+  }
+}
+
 $(function () {
 
   setupServiceWorker();
@@ -600,4 +623,8 @@ window.addEventListener('load', function () {
   }
 
   setupFmdHeader();
+
+  // handleHeaderOverflow();
 });
+
+// window.addEventListener('resize', handleHeaderOverflow);
