@@ -1,6 +1,5 @@
 // Hide Header on scroll down
 function setupFmdHeader() {
-
   // Return element's offset top
   function getOffsetTop(selector) {
     return document.getElementsByClassName(selector)[0].getBoundingClientRect().top + window.pageYOffset;
@@ -13,12 +12,12 @@ function setupFmdHeader() {
 
   function showHeader() {
     header.classList.remove(hideClass);
-    header.style.transform = 'none';
+    // header.style.transform = 'none';
   }
 
   function hideHeader() {
     header.classList.add(hideClass);
-    header.style.transform = 'translateY(-100%)';
+    // header.style.transform = 'translateY(-100%)';
   }
 
   function setStickyHeader() {
@@ -28,13 +27,7 @@ function setupFmdHeader() {
 
   function unsetStickyHeader() {
     header.classList.remove(fixedClass);
-    header.style.position = headerInitialPosition;
-  }
-
-  function setParentPaddingTop(newPaddingTop = parentPaddingTop) {
-    if (isHeaderRelative) {
-      header.parentNode.style.paddingTop = newPaddingTop;
-    }
+    header.style.position = 'absolute';
   }
 
   function setHeaderTransition(newTransition) {
@@ -55,42 +48,39 @@ function setupFmdHeader() {
   const fixedClass = 'fmd-header-is-fixed';
 
   // If fixed header class wasn't found
-  if (!isElementSet(headerClass)){
-
+  if (!isElementSet(headerClass)) {
     console.error(`Use a classe "${headerClass}" no <header> para ativar o fixed header`);
     return;
   }
 
   // Select fixed header
   const header = document.getElementsByClassName(headerClass)[0];
-  const headerInitialPosition = getComputedStyle(header)['position'];
   const headerTransition = Number(getComputedStyle(header)['transition-duration'].replace('s', '')) * 1000;
-
-  // If header is relative, set it's parent padding-top with header height
-  const isHeaderRelative = ['relative', 'sticky', 'initial'].includes(headerInitialPosition);
-  const parentPaddingTop = isHeaderRelative ? header.offsetHeight : '0';
 
   // Start target where header will be fixed | Default: Window Height (100vh)
   const startTarget = isElementSet(startTargetClass) ?
-                     getOffsetTop(startTargetClass) :
-                     window.outerHeight;
+      getOffsetTop(startTargetClass) :
+      window.outerHeight;
 
   // End target where header will be shown | Default: The page bottom
   const endTarget = isElementSet(endTargetClass) ?
-                   getOffsetTop(endTargetClass) :
-                   document.body.scrollHeight;
+      getOffsetTop(endTargetClass) :
+      document.body.scrollHeight;
+
+  // Set variable that is used to apply padding-top to the body
+  header.style.position = 'absolute';
+  setTimeout(function () {
+    document.documentElement.style.setProperty('--header-height', header.offsetHeight + 'px');
+  }, headerTransition);
 
   // Scroll event listener
-  $(window).scroll(function(event) {
-
+  window.addEventListener('scroll', function () {
     didScroll = true;
   });
 
   // Watcher that calls function if the window was scrolled
-  setInterval(function() {
-
+  setInterval(function () {
     if (didScroll) {
-
       hasScrolled();
       didScroll = false;
     }
@@ -98,18 +88,15 @@ function setupFmdHeader() {
 
   // When window gets scrolled
   function hasScrolled() {
-
     const st = window.pageYOffset;
 
     // Update last scroll top
     function updateLastScroll() {
-
       lastScrollTop = st;
     }
 
     // Make sure they scroll more than delta
     if (Math.abs(lastScrollTop - st) <= delta) {
-
       return;
     }
 
@@ -117,31 +104,24 @@ function setupFmdHeader() {
 
     // If the window bottom reaches end target
     if (st + window.outerHeight >= endTarget) {
-
       showHeader();
       updateLastScroll();
-
       return;
     }
 
     // If scroll down and passes start target
     if (st > lastScrollTop && st > startTarget) {
-
       window.clearTimeout(fixedTimer);
+
       fixedTimer = window.setTimeout(function () {
-
         setStickyHeader();
-        setParentPaddingTop();
-
       }, headerTransition);
     }
 
     // If scroll down and passes header height
     if (st > lastScrollTop && st > header.offsetHeight) {
-
       hideHeader();
       updateLastScroll();
-
       return;
     }
 
@@ -149,14 +129,11 @@ function setupFmdHeader() {
     showHeader();
 
     if (st < header.offsetHeight) {
-
       setHeaderTransition(0);
     }
 
     if (st === 0) {
-
       unsetStickyHeader();
-      setParentPaddingTop(0);
     }
 
     updateLastScroll();

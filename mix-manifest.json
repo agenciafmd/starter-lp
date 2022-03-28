@@ -44,5 +44,6 @@
     "/public/index.html": "/public/index.html",
     "/public/offline.html": "/public/offline.html",
     "/public/robots.txt": "/public/robots.txt",
-    "/public/tema.html": "/public/tema.html"
+    "/public/tema.html": "/public/tema.html",
+    "/public/svg/sprite.svg": "/public/svg/sprite.svg"
 }
